@@ -89,6 +89,19 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <xsl:text>)</xsl:text>
     </xsl:template>
     
+    <!-- Use http://www.essepuntato.it/2011/05/overlapping to test it -->
+    <xsl:template match="swrl:BuiltinAtom | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#BuiltinAtom']]">
+    	<xsl:value-of select="substring-after(swrl:builtin/@rdf:resource,'http://www.w3.org/2003/11/swrlb#')" />
+    	<xsl:text>(</xsl:text>
+        <xsl:for-each select="swrl:arguments/rdf:Description">
+        	<xsl:value-of select="concat('?',substring-after(@rdf:about,'#'))"/>
+        	<xsl:if test="position() != last()">
+        		<xsl:text>,</xsl:text>
+        	</xsl:if>
+        </xsl:for-each>
+        <xsl:text>)</xsl:text>
+    </xsl:template>
+    
     <xsl:template match="swrl:classPredicate">
         <xsl:apply-templates select="@rdf:resource">
             <xsl:with-param name="type" select="'class'" tunnel="yes" as="xs:string" />
