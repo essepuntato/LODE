@@ -29,9 +29,9 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     xmlns:dcterms="http://purl.org/dc/terms/"
     xmlns="http://www.w3.org/1999/xhtml">
     
-    <xsl:template match="swrl:Imp">
+    <xsl:template match="swrl:Imp | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#Imp']]">
         <div id="{generate-id()}" class="entity">
-            <h3>Rule #<xsl:value-of select="count(preceding-sibling::swrl:Imp) + 1" /> <xsl:call-template name="get.backlink.to.top" /></h3>
+            <h3>Rule #<xsl:value-of select="count(preceding-sibling::swrl:Imp | preceding-sibling::rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#Imp']]) + 1" /> <xsl:call-template name="get.backlink.to.top" /></h3>
             <p>
                 <xsl:apply-templates select="swrl:body" />
                 <xsl:text> -> </xsl:text>
@@ -40,30 +40,31 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         </div>
     </xsl:template>
     
-    <xsl:template match="swrl:body | swrl:head | swrl:AtomList/rdf:first">
+    <xsl:template match="swrl:body | swrl:head | swrl:AtomList/rdf:first | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#AtomList']]/rdf:first">
         <xsl:apply-templates />
     </xsl:template>
     
-    <xsl:template match="swrl:AtomList">
+    <xsl:template match="swrl:AtomList | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#AtomList']]">
         <xsl:apply-templates select="rdf:first" />
         <xsl:apply-templates select="rdf:rest" />
     </xsl:template>  
     
-    <xsl:template match="swrl:AtomList/rdf:rest">
+    <xsl:template match="swrl:AtomList/rdf:rest | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#AtomList']]/rdf:rest">
         <xsl:if test="element()">
             <xsl:text> , </xsl:text>
             <xsl:apply-templates />                
         </xsl:if>
     </xsl:template>  
     
-    <xsl:template match="swrl:ClassAtom">
+    <xsl:template match="swrl:ClassAtom | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#ClassAtom']]">
         <xsl:apply-templates select="swrl:classPredicate" />
         <xsl:text>(</xsl:text>
         <xsl:apply-templates select="swrl:argument1" />
         <xsl:text>)</xsl:text>
     </xsl:template>  
     
-    <xsl:template match="swrl:IndividualPropertyAtom | swrl:DatavaluedPropertyAtom">
+    <xsl:template match="swrl:IndividualPropertyAtom | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#IndividualPropertyAtom']] | 
+    swrl:DatavaluedPropertyAtom | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom']]">
         <xsl:apply-templates select="swrl:propertyPredicate" />
         <xsl:text>(</xsl:text>
         <xsl:apply-templates select="swrl:argument1" />
@@ -72,7 +73,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <xsl:text>)</xsl:text>
     </xsl:template>  
     
-    <xsl:template match="swrl:SameIndividualsAtom">
+    <xsl:template match="swrl:SameIndividualsAtom | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#SameIndividualsAtom']]">
         <xsl:text>SameAs(</xsl:text>
         <xsl:apply-templates select="swrl:argument1" />
         <xsl:text>,</xsl:text>
@@ -80,7 +81,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <xsl:text>)</xsl:text>
     </xsl:template>  
     
-    <xsl:template match="swrl:DifferentIndividualsAtom">
+    <xsl:template match="swrl:DifferentIndividualsAtom | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#DifferentIndividualsAtom']]">
        <xsl:text>DifferentFrom(</xsl:text>
         <xsl:apply-templates select="swrl:argument1" />
         <xsl:text>,</xsl:text>
@@ -123,10 +124,10 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     </xsl:template>
     
     <xsl:template name="get.swrlrules">
-        <xsl:if test="exists(//swrl:Imp)">
+        <xsl:if test="exists(//(swrl:Imp | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#Imp']]))">
             <div id="swrlrules">
                 <h2>SWRL rules</h2>
-                <xsl:apply-templates select="//swrl:Imp" />
+                <xsl:apply-templates select="//(swrl:Imp | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#Imp']])" />
             </div>
         </xsl:if>
     </xsl:template>

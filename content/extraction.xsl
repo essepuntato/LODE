@@ -1321,7 +1321,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 <xsl:if test="exists(//rdf:Description[exists(rdf:type[@rdf:resource = 'http://www.w3.org/2002/07/owl#AllDisjointClasses'])]) or exists(/rdf:RDF/(owl:Class|owl:Restriction)[empty(@rdf:about | @rdf:ID) and exists(rdfs:subClassOf|owl:equivalentClass)])">
                     <li><a href="#generalaxioms"><xsl:value-of select="f:getDescriptionLabel('generalaxioms')" /></a></li>
                 </xsl:if>
-                <xsl:if test="exists(/rdf:RDF/swrl:Imp)">
+                <xsl:if test="exists(/rdf:RDF/(swrl:Imp | rdf:Description[rdf:type[@rdf:resource = 'http://www.w3.org/2003/11/swrl#Imp']]))">
                     <li><a href="#swrlrules"><xsl:value-of select="f:getDescriptionLabel('rules')" /></a></li>
                 </xsl:if>
                 <li><a href="#namespacedeclarations"><xsl:value-of select="f:getDescriptionLabel('namespaces')" /></a></li>
