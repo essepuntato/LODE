@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2010-2013, Silvio Peroni <essepuntato@gmail.com>
+Copyright (c) 2010-2014, Silvio Peroni <essepuntato@gmail.com>
 
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
@@ -48,6 +48,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     <xsl:variable name="default-labels" select="document(concat($def-lang,'.xml'))" />
     <xsl:variable name="labels" select="document(concat($lang,'.xml'))" />
     <xsl:variable name="possible-ontology-urls" select="($ontology-url,concat($ontology-url,'/'),concat($ontology-url,'#'))" as="xs:string+" />
+    <xsl:variable name="mime-types" select="('jpg','image/jpg','jpeg','image/jpg','png','image/png')" as="xs:string+" />
     
     <xsl:variable name="prefixes-uris" as="xs:string*">
         <xsl:variable name="declared-prefixes" select="in-scope-prefixes($rdf)" as="xs:string*" />
@@ -187,8 +188,20 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     </xsl:template>
     
     <xsl:template match="dc:description[@rdf:resource]" mode="ontology">
+        <xsl:variable name="url" select="@rdf:resource" />
+        <xsl:variable name="index" select="f:string-last-index-of($url,'\.')" as="xs:integer?" />
+        <xsl:variable name="extension" select="substring($url,$index + 1)" as="xs:string?" />
+        
         <p class="image">
-            <object data="{@rdf:resource}" />
+            <span><xsl:value-of select="$index,$extension,string-length($url)" separator=" - " /></span>
+            <object data="{@rdf:resource}">
+                <xsl:if test="$extension != ''">
+                    <xsl:variable name="mime" select="$mime-types[index-of($mime-types,$extension) + 1]" as="xs:string?" />
+                    <xsl:if test="$mime != ''">
+                        <xsl:attribute name="type" select="$mime" />
+                    </xsl:if>
+                </xsl:if>
+            </object>
         </p>
     </xsl:template>
     
@@ -199,8 +212,19 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     </xsl:template>
     
     <xsl:template match="dc:description[@rdf:resource]">
+        <xsl:variable name="url" select="@rdf:resource" />
+        <xsl:variable name="index" select="f:string-last-index-of($url,'.')" as="xs:integer?" />
+        <xsl:variable name="extension" select="substring($url,$index + 1)" as="xs:string?" />
+        
         <p class="image">
-            <object data="{@rdf:resource}" />
+            <object data="{@rdf:resource}">
+                <xsl:if test="$extension != ''">
+                    <xsl:variable name="mime" select="$mime-types[index-of($mime-types,$extension) + 1]" as="xs:string?" />
+                    <xsl:if test="$mime != ''">
+                        <xsl:attribute name="type" select="$mime" />
+                    </xsl:if>
+                </xsl:if>
+            </object>
         </p>
     </xsl:template>
     
