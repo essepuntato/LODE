@@ -153,11 +153,6 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                     <dd>
                         <a href="{$source}?url={$ontology-url}"><xsl:value-of select="f:getDescriptionLabel('ontologysource')" /></a>
                     </dd>
-                    <dd>
-                        <a href="http://owl.cs.manchester.ac.uk/browser/ontologies/?action=load&amp;clear=true&amp;uri={$ontology-url}" title="Open this ontology using the Machester Ontology Browser">
-                            Machester Ontology Browser
-                        </a>
-                    </dd>
                 </dl>
                 <xsl:apply-templates select="dc:rights|dcterms:rights" />
             </div>
