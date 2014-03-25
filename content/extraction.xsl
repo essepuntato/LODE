@@ -188,7 +188,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <xsl:variable name="extension" select="substring($url,$index + 1)" as="xs:string?" />
         
         <p class="image">
-            <span><xsl:value-of select="$index,$extension,string-length($url)" separator=" - " /></span>
+            <!-- <span><xsl:value-of select="$index,$extension,string-length($url)" separator=" - " /></span>  -->
             <object data="{@rdf:resource}">
                 <xsl:if test="$extension != ''">
                     <xsl:variable name="mime" select="$mime-types[index-of($mime-types,$extension) + 1]" as="xs:string?" />
@@ -1213,7 +1213,18 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
             <xsl:for-each select="tokenize(.,$n)">
                 <xsl:if test="normalize-space(.) != ''">
                     <p>
-                        <xsl:value-of select="." />
+                    	<xsl:variable name="withLinks" select="replace(.,'\[\[([^\[\]]+)\]\[([^\[\]]+)\]\]','@@@$1@@$2@@@')" />
+                    	<xsl:for-each select="tokenize($withLinks,'@@@')">
+                    		<xsl:choose>
+                    			<xsl:when test="matches(.,'@@')">
+                    				<xsl:variable name="tokens" select="tokenize(.,'@@')" />
+                    				<a href="{$tokens[1]}"><xsl:value-of select="$tokens[2]" /></a>
+                    			</xsl:when>
+                    			<xsl:otherwise>
+                    				<xsl:value-of select="." />
+                    			</xsl:otherwise>
+                    		</xsl:choose>
+                    	</xsl:for-each>
                     </p>
                 </xsl:if>
             </xsl:for-each>
