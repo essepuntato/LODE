@@ -1630,13 +1630,15 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     <xsl:function name="f:getPrefixFromIRI" as="xs:string?">
         <xsl:param name="iri" as="xs:string" />
         
-        <xsl:variable name="iriNew" select="if (contains($iri,'#') or contains($iri,'/')) then $iri else concat(base-uri($root), $iri)" as="xs:string" />
-        
-        <xsl:variable name="ns" select="if (contains($iriNew,'#')) then substring($iriNew,1,f:string-first-index-of($iriNew,'#')) else substring($iriNew,1,f:string-last-index-of(replace($iriNew,'://','---'),'/'))" as="xs:string" />
-        
-        <xsl:variable name="index" select="index-of($prefixes-uris,$ns)[1]" as="xs:integer?" />
-        <xsl:if test="exists($index)">
-            <xsl:value-of select="$prefixes-uris[$index - 1]" />
+        <xsl:if test="not(starts-with($iri,'_:'))">
+            <xsl:variable name="iriNew" select="if (contains($iri,'#') or contains($iri,'/')) then $iri else concat(base-uri($root), $iri)" as="xs:string" />
+            
+            <xsl:variable name="ns" select="if (contains($iriNew,'#')) then substring($iriNew,1,f:string-first-index-of($iriNew,'#')) else substring($iriNew,1,f:string-last-index-of(replace($iriNew,'://','---'),'/'))" as="xs:string" />
+            
+            <xsl:variable name="index" select="index-of($prefixes-uris,$ns)[1]" as="xs:integer?" />
+            <xsl:if test="exists($index)">
+                <xsl:value-of select="$prefixes-uris[$index - 1]" />
+            </xsl:if>
         </xsl:if>
     </xsl:function>
     
