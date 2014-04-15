@@ -173,6 +173,8 @@ public class LodeServlet extends HttpServlet {
 				}
 				*/
 				
+				System.out.println("######################\n\n" + content + "\n\n######################");
+				
 				content = applyXSLTTransformation(content, stringURL, lang);
 				
 				out.println(content);

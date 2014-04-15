@@ -24,14 +24,14 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     <!-- DISJOINT: begin -->
     <xsl:variable name="disjoints">
         <xsl:variable name="temp">
-                <xsl:for-each select="/rdf:RDF/(owl:Class|owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty|owl:NamedIndividual)[owl:disjointWith[@rdf:resource]]">
-                    <xsl:variable name="id" select="@rdf:about|@rdf:ID" />
-                    <xsl:for-each select="owl:disjointWith/@rdf:resource">
+                <xsl:for-each select="/rdf:RDF/(owl:Class|owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty|owl:NamedIndividual)[owl:disjointWith[@*:resource]]">
+                    <xsl:variable name="id" select="@*:about|@*:ID" />
+                    <xsl:for-each select="owl:disjointWith/@*:resource">
                         <disjoint rdf:about="{$id}" rdf:resource="{.}" />
                     </xsl:for-each>
                 </xsl:for-each>
-                <xsl:for-each select="/rdf:RDF/rdf:Description[exists(rdf:type[@rdf:resource = 'http://www.w3.org/2002/07/owl#AllDisjointClasses'])]">
-                    <xsl:variable name="descriptions" select="(owl:members/rdf:Description/(@rdf:about|@rdf:ID))" as="attribute()+" />
+                <xsl:for-each select="/rdf:RDF/rdf:Description[exists(rdf:type[@*:resource = 'http://www.w3.org/2002/07/owl#AllDisjointClasses'])]">
+                    <xsl:variable name="descriptions" select="(owl:members/rdf:Description/(@*:about|@*:ID))" as="attribute()+" />
                     <xsl:variable name="last" select="count($descriptions) - 1" as="xs:integer" />
                     <xsl:for-each select="1 to $last">
                         <xsl:variable name="pos" select="." />
@@ -62,9 +62,9 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     <!-- SAME AS: begin -->
     <xsl:variable name="sameas">
         <xsl:variable name="temp">
-            <xsl:for-each select="/rdf:RDF/(owl:Class|owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty|owl:NamedIndividual)[owl:sameAs[@rdf:resource]]">
-                <xsl:variable name="id" select="@rdf:about|@rdf:ID" />
-                <xsl:for-each select="owl:sameAs/@rdf:resource">
+            <xsl:for-each select="/rdf:RDF/(owl:Class|owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty|owl:NamedIndividual)[owl:sameAs[@*:resource]]">
+                <xsl:variable name="id" select="@*:about|@*:ID" />
+                <xsl:for-each select="owl:sameAs/@*:resource">
                     <sameas rdf:about="{$id}" rdf:resource="{.}" />
                 </xsl:for-each>
             </xsl:for-each>
@@ -88,9 +88,9 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     <!-- EQUIVALENT ENTITY: begin -->
     <xsl:variable name="equivalent">
         <xsl:variable name="temp">
-            <xsl:for-each select="/rdf:RDF/(owl:Class|owl:ObjectProperty|owl:DatatypeProperty)[(owl:equivalentClass|owl:equivalentProperty)[@rdf:resource]]">
-                <xsl:variable name="id" select="@rdf:about|@rdf:ID" />
-                <xsl:for-each select="(owl:equivalentClass|owl:equivalentProperty)/@rdf:resource">
+            <xsl:for-each select="/rdf:RDF/(owl:Class|owl:ObjectProperty|owl:DatatypeProperty)[(owl:equivalentClass|owl:equivalentProperty)[@*:resource]]">
+                <xsl:variable name="id" select="@*:about|@*:ID" />
+                <xsl:for-each select="(owl:equivalentClass|owl:equivalentProperty)/@*:resource">
                     <equivalent rdf:about="{$id}" rdf:resource="{.}" />
                 </xsl:for-each>
             </xsl:for-each>
@@ -115,9 +115,9 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     <xsl:variable name="inverseproperty">
         <xsl:variable name="temp">
             <xsl:for-each select="/rdf:RDF/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)[owl:inverseOf]">
-                <xsl:variable name="id" select="@rdf:about|@rdf:ID" />
-                <xsl:for-each select="owl:inverseOf[@rdf:resource]">
-                    <inverseproperty rdf:about="{$id}" rdf:resource="{@rdf:resource}" />
+                <xsl:variable name="id" select="@*:about|@*:ID" />
+                <xsl:for-each select="owl:inverseOf[@*:resource]">
+                    <inverseproperty rdf:about="{$id}" rdf:resource="{@*:resource}" />
                 </xsl:for-each>
             </xsl:for-each>
         </xsl:variable>
@@ -141,24 +141,24 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     <xsl:function name="f:getSomething" as="attribute()*">
         <xsl:param name="doc" />
         <xsl:param name="element" as="element()" />
-        <xsl:variable name="uri" select="$element/(@rdf:about|@rdf:ID)" as="attribute()"/>
-        <xsl:sequence select="$doc//((element()[$uri = @rdf:resource]/@rdf:about)|(element()[$uri = @rdf:about]/@rdf:resource))" />
+        <xsl:variable name="uri" select="$element/(@*:about|@*:ID)" as="attribute()"/>
+        <xsl:sequence select="$doc//((element()[$uri = @*:resource]/@*:about)|(element()[$uri = @*:about]/@*:resource))" />
     </xsl:function>
     
     <xsl:function name="f:hasSomething" as="xs:boolean">
         <xsl:param name="doc" />
         <xsl:param name="element" as="element()" />
-        <xsl:variable name="uri" select="$element/(@rdf:about|@rdf:ID)" as="attribute()"/>
-        <xsl:value-of select="exists($doc//element()[$uri = @rdf:resource or $uri = @rdf:about])" />
+        <xsl:variable name="uri" select="$element/(@*:about|@*:ID)" as="attribute()"/>
+        <xsl:value-of select="exists($doc//element()[$uri = @*:resource or $uri = @*:about])" />
     </xsl:function>
     
     <xsl:template name="removeDuplicates">
         <xsl:param name="temp" />
         <xsl:for-each select="$temp//element()">
-            <xsl:variable name="currentAbout" select="@rdf:about" as="attribute()" />
-            <xsl:variable name="currentResource" select="@rdf:resource" as="attribute()" />
+            <xsl:variable name="currentAbout" select="@*:about" as="attribute()" />
+            <xsl:variable name="currentResource" select="@*:resource" as="attribute()" />
             
-            <xsl:if test="not(some $prec in preceding-sibling::element() satisfies $prec/@rdf:about = $currentResource and $prec/@rdf:resource = $currentAbout)">
+            <xsl:if test="not(some $prec in preceding-sibling::element() satisfies $prec/@*:about = $currentResource and $prec/@*:resource = $currentAbout)">
                 <xsl:copy>
                     <xsl:copy-of select="@*" />
                 </xsl:copy>
