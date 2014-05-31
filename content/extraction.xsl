@@ -523,7 +523,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         </xsl:choose>
     </xsl:function>
     
-    <xsl:function name="f:getLabel" as="xs:string">
+    <!-- <xsl:function name="f:getLabel" as="xs:string">
         <xsl:param name="iri" as="xs:string" />
         
         <xsl:variable name="node" select="$root//rdf:RDF/element()[(@*:about = $iri or @*:ID = $iri) and exists(rdfs:label)][1]" as="element()*" />
@@ -539,6 +539,48 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="concat($prefix,':',substring-after($iri, $prefixes-uris[index-of($prefixes-uris,$prefix)[1] + 1]))" />
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function> -->
+    <xsl:function name="f:getLabel" as="xs:string">
+        <xsl:param name="iri" as="xs:string" />
+        
+        <xsl:variable name="node" select="$root//rdf:RDF/element()[(@*:about = $iri or @*:ID = $iri) and exists(rdfs:label)][1]" as="element()*" />
+        <xsl:choose>
+            <xsl:when test="exists($node/rdfs:label)">
+                <xsl:value-of select="$node/rdfs:label[f:isInLanguage(.)]" />
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="localName" as="xs:string?">
+                    <xsl:variable 
+                        name="current-index" 
+                        select="if (contains($iri,'#')) 
+                                    then f:string-first-index-of($iri,'#') 
+                                    else f:string-last-index-of(replace($iri,'://','---'),'/')" 
+                        as="xs:integer?" />
+                    <xsl:if test="exists($current-index) and string-length($iri) != $current-index">
+                        <xsl:sequence select="substring($iri,$current-index + 1)" />
+                    </xsl:if>
+                </xsl:variable>
+                
+                <xsl:choose>
+                    <xsl:when test="string-length($localName) = 0">
+                        <xsl:variable name="prefix" select="f:getPrefixFromIRI($iri)" as="xs:string*" />
+                        <xsl:choose>
+                            <xsl:when test="empty($prefix)">
+                                <xsl:value-of select="$iri" />
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="concat($prefix,':',substring-after($iri, $prefixes-uris[index-of($prefixes-uris,$prefix)[1] + 1]))" />
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:variable name="camelCase" select="replace($localName,'([A-Z])',' $1')" />
+                        <xsl:variable name="underscoreOrDash" select="replace($camelCase,'(_|-)',' ')" />
+                        <xsl:value-of select="normalize-space(lower-case($underscoreOrDash))" />
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:otherwise>
@@ -1535,7 +1577,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <xsl:param name="type" as="xs:string" select="''" tunnel="yes" />
         <xsl:variable name="el" select="$root/rdf:RDF/element()[@*:about = $iri or @*:ID = $iri]" as="element()*" />
         <xsl:choose>
-            <xsl:when test="($type = '' or $type = 'class') and $el[self::owl:Class]">
+            <xsl:when test="($type = '' or $type = 'class') and ($el[self::owl:Class] or $iri = 'http://www.w3.org/2002/07/owl#Thing')">
                 <sup title="{f:getDescriptionLabel('class')}" class="type-c">c</sup>
             </xsl:when>
             <xsl:when test="($type = '' or $type = 'property') and $el[self::owl:ObjectProperty]">
