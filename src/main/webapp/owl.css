@@ -236,3 +236,7 @@ pre {
   line-height:1.1em;
   padding:1em;
 }
+
+.image object {
+    max-width: 100%;
+}

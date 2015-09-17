@@ -226,10 +226,11 @@ public class LodeServlet extends HttpServlet {
 
 		if (useOWLAPI) {
 			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-
-			OWLOntology ontology = manager.loadOntology(IRI.create(ontologyURL.toString()));
+			
+			OWLOntology ontology = null;
 
 			if (considerImportedClosure || considerImportedOntologies) {
+				ontology = manager.loadOntology(IRI.create(ontologyURL.toString()));
 				Set<OWLOntology> setOfImportedOntologies = new HashSet<OWLOntology>();
 				if (considerImportedOntologies) {
 					setOfImportedOntologies.addAll(ontology.getDirectImports());
@@ -239,6 +240,9 @@ public class LodeServlet extends HttpServlet {
 				for (OWLOntology importedOntology : setOfImportedOntologies) {
 					manager.addAxioms(ontology, importedOntology.getAxioms());
 				}
+			} else {
+				manager.setSilentMissingImportsHandling(true);
+				ontology = manager.loadOntology(IRI.create(ontologyURL.toString()));
 			}
 
 			if (useReasoner) {
