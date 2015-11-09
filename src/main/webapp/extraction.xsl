@@ -111,9 +111,12 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <link rel="shortcut icon" href="{$css-location}favicon.ico" />
         <script src="{$css-location}jquery.js"><!-- Comment for compatibility --></script>
         <script src="{$css-location}jquery.scrollTo.js"><!-- Comment for compatibility --></script>
+        <script src="/static/js/marked.min.js"><!-- Comment for compatibility --></script>
         <script>
                 $(document).ready(
                     function () {
+                    	jQuery(".markdown").each(function(el){
+							jQuery(this).after(marked(jQuery(this).text())).remove()});
                         var list = $('a[name="<xsl:value-of select="$ontology-url" />"]');
                         if (list.size() != 0) {
                         	var element = list.first();
@@ -1255,6 +1258,10 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     </xsl:template>
     
     <xsl:template name="get.content">
+    	<span class="markdown">
+    		<xsl:value-of select="text()" />
+    	</span>
+    	<!-- 
         <xsl:for-each select="text()">
             <xsl:for-each select="tokenize(.,$n)">
                 <xsl:if test="normalize-space(.) != ''">
@@ -1275,6 +1282,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 </xsl:if>
             </xsl:for-each>
         </xsl:for-each>
+         -->
     </xsl:template>
     
     <xsl:template name="get.title">
