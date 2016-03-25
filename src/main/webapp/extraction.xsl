@@ -111,7 +111,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         <link rel="shortcut icon" href="{$css-location}favicon.ico" />
         <script src="{$css-location}jquery.js"><!-- Comment for compatibility --></script>
         <script src="{$css-location}jquery.scrollTo.js"><!-- Comment for compatibility --></script>
-        <script src="/static/js/marked.min.js"><!-- Comment for compatibility --></script>
+        <script src="{$css-location}marked.min.js"><!-- Comment for compatibility --></script>
         <script>
                 $(document).ready(
                     function () {
