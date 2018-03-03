@@ -1,18 +1,26 @@
+# Live OWL Documentation Environment (LODE)
+This repository is a Tomcat server application that can be used to create HTML documentation for [Web Ontology Language](https://www.w3.org/OWL/) (OWL) ontologies.
 
 
+## Example usage:
 
-example usage:
+1. Launch application:
 
-1. launch application with
+	`mvn clean jetty:run`
 
-	mvn clean jetty:run
+2. Test
 
-2. test /extract
+Try running LODE with the following ontologies:
 
-	+ DOLCE ontology
-		
-		http://localhost:8080/lode/extract?url=http://www.loa.istc.cnr.it/ontologies/DOLCE-Lite.owl
-	
-	+ photography ontology
-	
-		http://localhost:8080/lode/extract?url=http://130.88.198.11/co-ode-files/ontologies/photography.owl
+* **DOLCE ontology**
+	* `http://localhost:8080/lode/extract?url=http://www.loa.istc.cnr.it/ontologies/DOLCE-Lite.owl`
+* **PROMS ontology**
+	* contained here in the file [proms.ttl](proms.ttl)
+	* it is a very tiny ontology visualised online using LODE at <http://promsns.org/def/proms/>.
+	* You can run try using a local instance of LODE to generate HTML for the local copy of PROMS and compare it with the online version made by the PROMS creator
+
+
+## Contacts
+**Silvio Peroni**  
+*Creator*  
+<http://www.essepuntato.it>
