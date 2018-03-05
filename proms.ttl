@@ -1,0 +1,189 @@
+# baseURI: http://promsns.org/def/proms
+# imports: http://purl.org/dc/elements/1.1/
+# imports: http://purl.org/dc/terms/
+# imports: http://purl.org/vocab/vann/
+# imports: http://purl.org/vocommons/voaf#
+# imports: http://rdfs.org/ns/void
+# imports: http://www.w3.org/2000/01/rdf-schema
+# imports: http://www.w3.org/ns/prov-o
+# imports: http://xmlns.com/foaf/0.1/
+
+@prefix : <http://promsns.org/def/proms#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix ns: <http://www.w3.org/2006/vcard/ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix voaf: <http://purl.org/vocommons/voaf#> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://promsns.org/def/proms>
+  rdf:type voaf:Vocabulary ;
+  rdf:type owl:Ontology ;
+  dc:creator "Nicholas J. Car" ;
+  dc:description "All classes in this ontology are subclasses (specialisations) of PROV ontology classes."@en ;
+  dc:publisher "CSIRO" ;
+  dc:rights "Copyright 2016 CSIRO"@en ;
+  dc:title "PROvenance Management System Ontology"@en ;
+  dct:created "2014"^^xsd:gYear ;
+  dct:hasPart "BasicReport" ;
+  dct:hasPart "EntityComponent" ;
+  dct:hasPart "ExternalReport" ;
+  dct:hasPart "InternalReport" ;
+  dct:hasPart "Report" ;
+  dct:hasPart "ReportingSystem" ;
+  dct:hasPart "endingActivity" ;
+  dct:hasPart "nativeId" ;
+  dct:hasPart "query" ;
+  dct:hasPart "reportingSystem" ;
+  dct:hasPart "startingActivity" ;
+  dct:license <https://wiki.csiro.au/pages/viewpage.action?pageId=663847169> ;
+  dct:modified "2016-10-01"^^xsd:date ;
+  vann:preferredNamespacePrefix "proms" ;
+  vann:preferredNamespaceUri "http://promsns.org/def/proms#" ;
+  voaf:extends prov: ;
+  void:uriSpace "http://promsns.org/def/proms#"^^rdf:XMLLiteral ;
+  void:vocabulary "http://promsns.org/def/proms" ;
+  rdfs:comment "This ontology is a specialisation of the PROV ontology. It adds several subclasses to Bundle to cater for types of reports containing provenance from reporting systems (a subclass of Agent). The attributes of these reports allow provenance from heterogeneous systems to be managed in a single provenance store."@en ;
+  rdfs:label "Provenance Management System Ontology"@en ;
+  owl:imports dc: ;
+  owl:imports dct: ;
+  owl:imports vann: ;
+  owl:imports voaf: ;
+  owl:imports <http://rdfs.org/ns/void> ;
+  owl:imports <http://www.w3.org/2000/01/rdf-schema> ;
+  owl:imports <http://www.w3.org/ns/prov-o> ;
+  owl:imports foaf: ;
+  owl:versionInfo "1.2" ;
+.
+:BasicReport
+  rdf:type owl:Class ;
+  rdfs:comment "A Report for which no other information is known that its ReportingSystem's nativeId and a generatedAtTime. It is little more than a log entry with few details."@en ;
+  rdfs:isDefinedBy <http://promsns.org/def/proms> ;
+  rdfs:label "Basic Report"@en ;
+  rdfs:subClassOf :Report ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom xsd:string ;
+      owl:onProperty rdfs:comment ;
+    ] ;
+.
+:ExternalReport
+  rdf:type owl:Class ;
+  rdfs:comment "A Report for which the identities of the data items (Entities) that the ReportingSystem that generated it are known but no internal process steps. An ExternalReport is a 'back box' with regards to its ReportingSystem's internal processes."@en ;
+  rdfs:isDefinedBy <http://promsns.org/def/proms> ;
+  rdfs:label "External Report"@en ;
+  rdfs:subClassOf :Report ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty :endingActivity ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty :startingActivity ;
+    ] ;
+.
+:InternalReport
+  rdf:type owl:Class ;
+  rdfs:comment "A Report for which details of the ReportingSystem that generated its internal details are known. The internal details are a series of one or more prov:Activity class instances with appropriate handover prov:Entity class instances with at least known input Entities to the first Activity and Entity outputs from the last Activity."@en ;
+  rdfs:isDefinedBy <http://promsns.org/def/proms> ;
+  rdfs:label "Internal Report"@en ;
+  rdfs:subClassOf :Report ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty :endingActivity ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty :startingActivity ;
+    ] ;
+.
+:Report
+  rdf:type owl:Class ;
+  rdfs:comment "Reports are the outputs of a single ReportingSystem operation. They are a single graph describing some provenance for the output od the ReportingSystem's operation's outputs."@en ;
+  rdfs:isDefinedBy <http://promsns.org/def/proms> ;
+  rdfs:label "Report"@en ;
+  rdfs:subClassOf prov:Bundle ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty :nativeId ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty :wasReportedBy ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty rdfs:label ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty prov:generatedAtTime ;
+    ] ;
+.
+:ReportingSystem
+  rdf:type owl:Class ;
+  rdfs:comment "A ReportingSystem is a SoftwareAgent, computer or other system that is able to produce Reports, therefore it is a system that is able to trace some level of provenance for processes that it undertakes. It must be acting on behalf of another Agent (usually a prov:Person) when producing Reports."@en ;
+  rdfs:isDefinedBy <http://promsns.org/def/proms> ;
+  rdfs:label "Reporting System"@en ;
+  rdfs:subClassOf prov:Agent ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty rdfs:label ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty prov:actedOnBehalfOf ;
+    ] ;
+.
+:endingActivity
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "The final Activity within a Report, based on endedAtTime."@en ;
+  rdfs:domain :Report ;
+  rdfs:isDefinedBy <http://promsns.org/def/proms> ;
+  rdfs:label "ending Activity"@en ;
+  rdfs:range prov:Activity ;
+.
+:nativeId
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "An ID that the ReportingSystem that generated this Report allocates to it. This is used to ensure there is an ID present in PROMS Reports that ReportingSystem owners cna use to find Reports"@en ;
+  rdfs:domain :Report ;
+  rdfs:isDefinedBy <http://promsns.org/def/proms> ;
+  rdfs:label "native ID"@en ;
+  rdfs:range xsd:string ;
+  rdfs:subPropertyOf dct:identifier ;
+.
+:startingActivity
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "The initial Activity within a Report, based on startedAtTime."@en ;
+  rdfs:domain :Report ;
+  rdfs:isDefinedBy <http://promsns.org/def/proms> ;
+  rdfs:label "starting Activity" ;
+  rdfs:range prov:Activity ;
+.
+:wasReportedBy
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "Each Report must be associated with a ReportingSystem instance"@en ;
+  rdfs:domain :Report ;
+  rdfs:isDefinedBy <http://promsns.org/def/proms> ;
+  rdfs:label "From a Reporting System"@en ;
+  rdfs:range :ReportingSystem ;
+  rdfs:subPropertyOf prov:wasAttributedTo ;
+.
