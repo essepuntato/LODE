@@ -2,19 +2,19 @@
 <labels>
     <ontology>Ontologie</ontology>
     <ontologysource>Source d'ontologie</ontologysource>
-    <visualisation>Autre visualisation</visualisation>
+    <visualisation>Autres visualisations</visualisation>
     <visualiseitwith>Visualiser avec</visualiseitwith>
     <date>Date</date>
     <currentversion>Version courante</currentversion>
-    <previousversion>Précédente version</previousversion>
-    <backwardcompatiblewith>Backward compatible with</backwardcompatiblewith>
+    <previousversion>Versions précédentes</previousversion>
+    <backwardcompatiblewith>Rétro compatible avec</backwardcompatiblewith>
     <incompatibleWith>Incompatible avec</incompatibleWith>
-    <abstract>Abstrait</abstract>
+    <abstract>Résumé</abstract>
     <introduction>Introduction</introduction>
     <disjointclasses>Toutes classes disjointes</disjointclasses>
-    <subclassdefinition>General Subclass Definition</subclassdefinition>
-    <equivalentdefinition>General Equivalent Definition</equivalentdefinition>
-    <issubclassof>Est sous classe de</issubclassof>
+    <subclassdefinition>Définitions des sous-classes</subclassdefinition>
+    <equivalentdefinition>Définitions équivalentes</equivalentdefinition>
+    <issubclassof>Est sous-classe de</issubclassof>
     <isequivalentto>Est équivalent à</isequivalentto>
     <functional>Fonctionnel</functional>
     <inversefunctional>Inversement fonctionnel</inversefunctional>
@@ -27,20 +27,20 @@
     <belongsto>appartient à</belongsto>
     <issameas>est identique à</issameas>
     <isalsodefinedas>est aussi défini comme</isalsodefinedas>
-    <isdisjointwith>est disjoint avec</isdisjointwith>
+    <isdisjointwith>est disjoint de</isdisjointwith>
     <haskeys>a pour clefs</haskeys>
     <hassuperclasses>a pour super-classes</hassuperclasses>
     <hassubclasses>a pour sous-classes</hassubclasses>
-    <isindomainof>a pour domaine</isindomainof>
-    <isinrangeof>a pour cible</isinrangeof>
+    <isindomainof>a pour domaines</isindomainof>
+    <isinrangeof>a pour cibles</isinrangeof>
     <hasmembers>a pour membres</hasmembers>
     <isinverseof>est inverse de</isinverseof>
-    <hassubpropertychains>has sub-property chains</hassubpropertychains>
+    <hassubpropertychains>a pour chaînes de sous-propriétés</hassubpropertychains>
     <hasequivalentproperties>a pour propriétés équivalentes</hasequivalentproperties>
     <hassuperproperties>a pour super-propriétés</hassuperproperties>
     <hassubproperties>a pour sous-propriétés</hassubproperties>
-    <hasdomain>a pour domaine</hasdomain>
-    <hasrange>a pour cible</hasrange>
+    <hasdomain>a pour domaines</hasdomain>
+    <hasrange>a pour cibles</hasrange>
     <importedontologies>Ontologies importées</importedontologies>
     <individualassertions>a pour assertions</individualassertions>
     <authors>Auteurs</authors>
@@ -52,27 +52,27 @@
     <class>classe</class>
     <classes>Classes</classes>
     <objectproperty>Propriété d'objet</objectproperty>
-    <objectproperties>Propriétés d'objet</objectproperties>
-    <dataproperty>Propriété de donnée</dataproperty>
-    <dataproperties>Propriétés de donnée</dataproperties>
+    <objectproperties>Propriétés d'objets</objectproperties>
+    <dataproperty>Propriété de données</dataproperty>
+    <dataproperties>Propriétés de données</dataproperties>
     <namedindividual>Individu nommé</namedindividual>
     <namedindividuals>Individus nommés</namedindividuals>
     <annotationproperty>Annotation de propriété</annotationproperty>
-    <annotationproperties>Annotation de propriétés</annotationproperties>
-    <datarange>Donnée cible</datarange>
+    <annotationproperties>Annotations de propriétés</annotationproperties>
+    <datarange>Donnée cibles</datarange>
     <dataranges>Données cibles</dataranges>
-    <generalaxioms>Axiome générale</generalaxioms>
+    <generalaxioms>Axiomes généraux</generalaxioms>
     <rule>Règle</rule>
     <rules>Règles SWRL</rules>
     <namespace>Espace de nommage par défaut</namespace>
-    <namespaces>Déclaration d'espace de nommage</namespaces>
+    <namespaces>Déclarations d'espaces de nommage</namespaces>
     <endnote>Ce document HTML a été obtenu par traitement du code source d'ontologie via</endnote>
     <developedby>Développé par</developedby>
     <or>ou</or>
-    <classtoc>Retour vers les classes</classtoc>
-    <objectpropertytoc>Retour vers les propriétés d'objet</objectpropertytoc>
-    <datapropertytoc>Retour vers les propriétés de données</datapropertytoc>
-    <annotationpropertytoc>Retour vers les annotations de propriétés</annotationpropertytoc>
-    <namedindividualtoc>Retour vers l'individu nommé</namedindividualtoc>
+    <classtoc>les classes</classtoc>
+    <objectpropertytoc>propriétés d'objets</objectpropertytoc>
+    <datapropertytoc>propriétés de données</datapropertytoc>
+    <annotationpropertytoc>propriétés d'annotations</annotationpropertytoc>
+    <namedindividualtoc>les individus nommés</namedindividualtoc>
     <hascharacteristics>a pour caractéristiques</hascharacteristics>
 </labels>
