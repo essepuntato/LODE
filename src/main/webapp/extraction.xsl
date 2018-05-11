@@ -14,9 +14,8 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 -->
-<xsl:stylesheet
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"                
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs xd dc rdfs schema swrl owl2xml owl xsd swrlb rdf f dcterms"
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs xd dc rdfs swrl owl2xml owl xsd swrlb rdf f dcterms"
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" version="2.0"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
@@ -29,8 +28,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:f="http://www.essepuntato.it/xslt/function"
     xmlns:dcterms="http://purl.org/dc/terms/"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xml:base="."> <!-- allow the transform to live at https://raw.githubusercontent.com/, else  XTSE0165: I/O error reported by XML parser processing: unknown protocol: https -->
+    xmlns="http://www.w3.org/1999/xhtml">
      
     <xsl:include href="swrl-module.xsl" />
     <xsl:include href="common-functions.xsl"/>
