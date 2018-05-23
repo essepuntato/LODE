@@ -383,7 +383,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
         </div>
     </xsl:template>
     
-    <xsl:template match="rdfs:range|schema:rangeIncludes | rdfs:domain|schema:domainIncludes">
+    <xsl:template match="rdfs:domain|schema:domainIncludes | rdfs:range|schema:rangeIncludes">
         <dd>
             <xsl:apply-templates select="@*:resource | element()">
                 <xsl:with-param name="type" select="'class'" as="xs:string" tunnel="yes" />
@@ -1175,7 +1175,9 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                     <xsl:call-template name="get.property.superproperty" />
                     <xsl:call-template name="get.property.subproperty" />
                     <xsl:call-template name="get.property.domain" />
+                    <xsl:call-template name="get.property.domainIncludes" />
                     <xsl:call-template name="get.property.range" />
+                    <xsl:call-template name="get.property.rangeIncludes" />
                     <xsl:call-template name="get.property.inverse">
                         <xsl:with-param name="type" select="'property'" tunnel="yes" as="xs:string" />
                     </xsl:call-template>
@@ -1263,16 +1265,30 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     </xsl:template>
     
     <xsl:template name="get.property.domain">
-        <xsl:if test="exists((rdfs:domain|schema:domainIncludes))">
+        <xsl:if test="exists(rdfs:domain)">
             <dt><xsl:value-of select="f:getDescriptionLabel('hasdomain')" /></dt>
-            <xsl:apply-templates select="(rdfs:domain|schema:domainIncludes)" />
+            <xsl:apply-templates select="rdfs:domain" />
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template name="get.property.domainIncludes">
+        <xsl:if test="exists(schema:domainIncludes)">
+            <dt><xsl:value-of select="f:getDescriptionLabel('domainIncludes')" /></dt>
+            <xsl:apply-templates select="schema:domainIncludes" />
         </xsl:if>
     </xsl:template>
     
     <xsl:template name="get.property.range">
-        <xsl:if test="exists((rdfs:range|schema:rangeIncludes))">
+        <xsl:if test="exists(rdfs:range)">
             <dt><xsl:value-of select="f:getDescriptionLabel('hasrange')" /></dt>
-            <xsl:apply-templates select="(rdfs:range|schema:rangeIncludes)" />
+            <xsl:apply-templates select="rdfs:range" />
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template name="get.property.rangeIncludes">
+        <xsl:if test="exists(schema:rangeIncludes)">
+            <dt><xsl:value-of select="f:getDescriptionLabel('rangeIncludes')" /></dt>
+            <xsl:apply-templates select="schema:rangeIncludes" />
         </xsl:if>
     </xsl:template>
     
