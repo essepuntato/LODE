@@ -52,11 +52,13 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.mindswap.pellet.PelletOptions;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.MissingImportHandlingStrategy;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -71,6 +73,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
@@ -132,10 +135,10 @@ public class LodeServlet extends HttpServlet {
 
 				String content = "";
 
-				boolean useOWLAPI = new Boolean(request.getParameter("owlapi"));
-				boolean considerImportedOntologies = new Boolean(request.getParameter("imported"));
-				boolean considerImportedClosure = new Boolean(request.getParameter("closure"));
-				boolean useReasoner = new Boolean(request.getParameter("reasoner"));
+				boolean useOWLAPI = Boolean.valueOf(request.getParameter("owlapi"));
+				boolean considerImportedOntologies = Boolean.valueOf(request.getParameter("imported"));
+				boolean considerImportedClosure = Boolean.valueOf(request.getParameter("closure"));
+				boolean useReasoner = Boolean.valueOf(request.getParameter("reasoner"));
 
 				if (considerImportedOntologies || considerImportedClosure || useReasoner) {
 					useOWLAPI = true;
@@ -226,9 +229,8 @@ public class LodeServlet extends HttpServlet {
 
 		if (useOWLAPI) {
 			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-			
+			OWLOntologyLoaderConfiguration loadingConfig = new OWLOntologyLoaderConfiguration();
 			OWLOntology ontology = null;
-
 			if (considerImportedClosure || considerImportedOntologies) {
 				ontology = manager.loadOntology(IRI.create(ontologyURL.toString()));
 				Set<OWLOntology> setOfImportedOntologies = new HashSet<OWLOntology>();
@@ -241,8 +243,8 @@ public class LodeServlet extends HttpServlet {
 					manager.addAxioms(ontology, importedOntology.getAxioms());
 				}
 			} else {
-				manager.setSilentMissingImportsHandling(true);
-				ontology = manager.loadOntology(IRI.create(ontologyURL.toString()));
+				loadingConfig = loadingConfig.setMissingImportHandlingStrategy(MissingImportHandlingStrategy.SILENT);
+				ontology = manager.loadOntologyFromOntologyDocument(new IRIDocumentSource(IRI.create(ontologyURL.toString())), loadingConfig);
 			}
 
 			if (useReasoner) {
@@ -258,6 +260,7 @@ public class LodeServlet extends HttpServlet {
 		return result;
 	}
 
+	@SuppressWarnings("unused")
 	private String addImportedAxioms(String result, List<String> removed) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setNamespaceAware(true);
@@ -361,22 +364,22 @@ public class LodeServlet extends HttpServlet {
 
 			Map<OWLEntity, Set<OWLAnnotationAssertionAxiom>> entityAnnotations = new HashMap<OWLEntity, Set<OWLAnnotationAssertionAxiom>>();
 			for (OWLClass aEntity : ontology.getClassesInSignature()) {
-				entityAnnotations.put(aEntity, aEntity.getAnnotationAssertionAxioms(ontology));
+				entityAnnotations.put(aEntity, ontology.getAnnotationAssertionAxioms(aEntity.getIRI()));
 			}
 			for (OWLObjectProperty aEntity : ontology.getObjectPropertiesInSignature()) {
-				entityAnnotations.put(aEntity, aEntity.getAnnotationAssertionAxioms(ontology));
+				entityAnnotations.put(aEntity, ontology.getAnnotationAssertionAxioms(aEntity.getIRI()));
 			}
 			for (OWLDataProperty aEntity : ontology.getDataPropertiesInSignature()) {
-				entityAnnotations.put(aEntity, aEntity.getAnnotationAssertionAxioms(ontology));
+				entityAnnotations.put(aEntity, ontology.getAnnotationAssertionAxioms(aEntity.getIRI()));
 			}
 			for (OWLNamedIndividual aEntity : ontology.getIndividualsInSignature()) {
-				entityAnnotations.put(aEntity, aEntity.getAnnotationAssertionAxioms(ontology));
+				entityAnnotations.put(aEntity, ontology.getAnnotationAssertionAxioms(aEntity.getIRI()));
 			}
 			for (OWLAnnotationProperty aEntity : ontology.getAnnotationPropertiesInSignature()) {
-				entityAnnotations.put(aEntity, aEntity.getAnnotationAssertionAxioms(ontology));
+				entityAnnotations.put(aEntity, ontology.getAnnotationAssertionAxioms(aEntity.getIRI()));
 			}
 			for (OWLDatatype aEntity : ontology.getDatatypesInSignature()) {
-				entityAnnotations.put(aEntity, aEntity.getAnnotationAssertionAxioms(ontology));
+				entityAnnotations.put(aEntity, ontology.getAnnotationAssertionAxioms(aEntity.getIRI()));
 			}
 
 			manager.removeOntology(ontology);
