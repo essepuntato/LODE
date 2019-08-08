@@ -1,0 +1,15 @@
+---
+version: '2'
+
+services:
+
+  lode:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: pdnd-ontopia-lode
+    image: teamdigitale/pdnd-ontopia-lode
+    stdin_open: true
+    tty: true
+    ports:
+      - 8080:8080/tcp
