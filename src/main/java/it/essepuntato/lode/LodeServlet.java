@@ -338,7 +338,7 @@ public class LodeServlet extends HttpServlet {
 
 	private OWLOntology parseWithReasoner(OWLOntologyManager manager, OWLOntology ontology) {
 		try {
-			PelletOptions.load(new URL("http://" + cssLocation + "pellet.properties"));
+			PelletOptions.load(new URL("//" + cssLocation + "pellet.properties"));
 			PelletReasoner reasoner = PelletReasonerFactory.getInstance().createReasoner(ontology);
 			reasoner.getKB().prepare();
 			List<InferredAxiomGenerator<? extends OWLAxiom>> generators = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>();
