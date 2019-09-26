@@ -39,6 +39,8 @@
     <hassubproperties>ha come sotto-proprietà</hassubproperties>
     <hasdomain>ha come dominio</hasdomain>
     <hasrange>ha come codominio</hasrange>
+    <domainIncludes>domain includes</domainIncludes>
+    <rangeIncludes>range includes</rangeIncludes>
     <importedontologies>Ontologie importate</importedontologies>
     <individualassertions>ha come fatti</individualassertions>
     <authors>Autori</authors>

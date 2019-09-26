@@ -41,6 +41,8 @@
     <hassubproperties>a pour sous-propriétés</hassubproperties>
     <hasdomain>a pour domaines</hasdomain>
     <hasrange>a pour cibles</hasrange>
+    <domainIncludes>domain includes</domainIncludes>
+    <rangeIncludes>range includes</rangeIncludes>
     <importedontologies>Ontologies importées</importedontologies>
     <individualassertions>a pour assertions</individualassertions>
     <authors>Auteurs</authors>

@@ -41,6 +41,8 @@
     <hassubproperties>has sub-properties</hassubproperties>
     <hasdomain>has domain</hasdomain>
     <hasrange>has range</hasrange>
+    <domainIncludes>domain includes</domainIncludes>
+    <rangeIncludes>range includes</rangeIncludes>
     <importedontologies>Imported Ontologies</importedontologies>
     <individualassertions>has facts</individualassertions>
     <authors>Authors</authors>
