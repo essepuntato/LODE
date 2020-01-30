@@ -175,8 +175,13 @@ public class LodeServlet extends HttpServlet {
 	private void resolvePaths(HttpServletRequest request) {
 		xsltURL = getServletContext().getRealPath("extraction.xsl");
 		String requestURL = request.getRequestURL().toString();
+		int start = requestURL.indexOf(":");
 		int index = requestURL.lastIndexOf("/");
-		cssLocation = requestURL.substring(0, index) + File.separator;
+		String protocol = request.getProtocol();
+		protocol = protocol.substring(0, protocol.indexOf("/")).toLowerCase();
+		cssLocation = "http" + requestURL.substring(start, index) + File.separator;
+		System.out.println("____#### " + request.getServerPort() + " : " + protocol);
+		
 	}
 
 	/*
@@ -338,7 +343,7 @@ public class LodeServlet extends HttpServlet {
 
 	private OWLOntology parseWithReasoner(OWLOntologyManager manager, OWLOntology ontology) {
 		try {
-			PelletOptions.load(new URL("//" + cssLocation + "pellet.properties"));
+			PelletOptions.load(new URL("http://" + cssLocation + "pellet.properties"));
 			PelletReasoner reasoner = PelletReasonerFactory.getInstance().createReasoner(ontology);
 			reasoner.getKB().prepare();
 			List<InferredAxiomGenerator<? extends OWLAxiom>> generators = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>();
