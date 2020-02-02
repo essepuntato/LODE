@@ -160,7 +160,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 <dl>
                     <dt><xsl:value-of select="f:getDescriptionLabel('visualisation')" />:</dt>
                     <dd>
-                        <a href="{$source}?url={$ontology-url}"><xsl:value-of select="f:getDescriptionLabel('ontologysource')" /></a>
+                        <a href="{$source}?url={$ontology-url}"><xsl:value-of select="f:getDescriptionLabel('ontologysource')" /></a> - <a href="{$webvowl}{$ontology-url}">WebVowl</a>
                     </dd>
                 </dl>
                 <xsl:apply-templates select="dc:rights|dcterms:rights" />
