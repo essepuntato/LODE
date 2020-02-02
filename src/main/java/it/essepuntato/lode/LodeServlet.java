@@ -108,7 +108,6 @@ public class LodeServlet extends HttpServlet {
 	 */
 	public LodeServlet() {
 		super();
-		conf = LODEConfiguration.getInstance(getServletContext().getRealPath("config.propeties"));
 	}
 
 	/**
@@ -446,8 +445,12 @@ public class LodeServlet extends HttpServlet {
 
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 
+		if (conf == null) {
+			conf = LODEConfiguration.getInstance(getServletContext().getRealPath("config.propeties"));
+		}
+
 		Transformer transformer = tfactory.newTransformer(new StreamSource(xsltURL));
-		
+
 		System.out.println(conf.getExternalURL());
 
 		transformer.setParameter("css-location", cssLocation);
