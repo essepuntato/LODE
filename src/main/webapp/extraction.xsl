@@ -27,6 +27,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:f="http://www.essepuntato.it/xslt/function"
     xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:cpannotationschema="http://www.ontologydesignpatterns.org/schemas/cpannotationschema.owl#"
     xmlns="http://www.w3.org/1999/xhtml">
      
     <xsl:include href="swrl-module.xsl" />
@@ -269,7 +270,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
             <xsl:text> (</xsl:text>
             <!--  <a href="http://www.essepuntato.it/lode/owlapi/{@*:resource}"><xsl:value-of select="f:getDescriptionLabel('visualiseitwith')" /> LODE</a> -->
             
-            <a href="{$lode-external-url}/extract?url={@*:resource}"><xsl:value-of select="f:getDescriptionLabel('visualiseitwith')" /> LODE</a> - <a href="{$webvowl}{@*:resource}"><xsl:value-of select="f:getDescriptionLabel('visualiseitwith')" /> WebVowl</a>
+            <a href="{$lode-external-url}/extract?url={@*:resource}"><xsl:value-of select="f:getDescriptionLabel('visualiseitwith')" /> LODE</a>
             <xsl:text>)</xsl:text>
         </dd>
     </xsl:template>
@@ -1329,6 +1330,15 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
             <dl>
                 <dt><xsl:value-of select="f:getDescriptionLabel('importedontologies')" />:</dt>
                 <xsl:apply-templates select="owl:imports" />
+            </dl>
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template name="get.coversrequirements">
+        <xsl:if test="exists(cpannotationschema:coversRequirements)">
+            <dl>
+                <dt><xsl:value-of select="f:getDescriptionLabel('coversRequirements')" />:</dt>
+                <xsl:apply-templates select="cpannotationschema:coversRequirements" />
             </dl>
         </xsl:if>
     </xsl:template>
