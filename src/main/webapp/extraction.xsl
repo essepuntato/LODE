@@ -39,6 +39,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
     <xsl:param name="css-location" select="'./'" as="xs:string" />
     <xsl:param name="source" as="xs:string" select="''" />
     <xsl:param name="ontology-url" as="xs:string" select="''" />
+    <xsl:param name="lode-external-url" as="xs:string" select="''" />
     
     <xsl:variable name="def-lang" select="'en'" as="xs:string" />
     <xsl:variable name="n" select="'\n|\r|\r\n'" />
@@ -265,7 +266,9 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
                 <xsl:value-of select="@*:resource" />
             </a>
             <xsl:text> (</xsl:text>
-            <a href="http://www.essepuntato.it/lode/owlapi/{@*:resource}"><xsl:value-of select="f:getDescriptionLabel('visualiseitwith')" /> LODE</a>
+            <!--  <a href="http://www.essepuntato.it/lode/owlapi/{@*:resource}"><xsl:value-of select="f:getDescriptionLabel('visualiseitwith')" /> LODE</a> -->
+            
+            <a href="{$lode-external-url}/extract?url={@*:resource}"><xsl:value-of select="f:getDescriptionLabel('visualiseitwith')" /> LODE</a>
             <xsl:text>)</xsl:text>
         </dd>
     </xsl:template>

@@ -449,6 +449,7 @@ public class LodeServlet extends HttpServlet {
 		transformer.setParameter("lang", lang);
 		transformer.setParameter("ontology-url", ontologyUrl);
 		transformer.setParameter("source", cssLocation + "source");
+		transformer.setParameter("lode-external-url", "http://localhost/lode");
 
 		StreamSource inputSource = new StreamSource(new StringReader(source));
 
