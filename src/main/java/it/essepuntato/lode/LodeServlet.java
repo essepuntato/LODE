@@ -451,13 +451,11 @@ public class LodeServlet extends HttpServlet {
 
 		Transformer transformer = tfactory.newTransformer(new StreamSource(xsltURL));
 
-		System.out.println(conf.getExternalURL());
-
 		transformer.setParameter("css-location", cssLocation);
 		transformer.setParameter("lang", lang);
 		transformer.setParameter("ontology-url", ontologyUrl);
 		transformer.setParameter("source", cssLocation + "source");
-		transformer.setParameter("lode-external-url", "http://localhost/lode");
+		transformer.setParameter("lode-external-url", conf.getExternalURL());
 
 		StreamSource inputSource = new StreamSource(new StringReader(source));
 
