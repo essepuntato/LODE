@@ -75,4 +75,15 @@
     <annotationpropertytoc>indice delle Annotation Property</annotationpropertytoc>
     <namedindividualtoc>indice degli Individui</namedindividualtoc>
     <hascharacteristics>è di tipo</hascharacteristics>
+    <coversRequirements>Covers requirements</coversRequirements>
+    <extractedFrom>Estratto da</extractedFrom>
+    <hasComponent>Ha Componente</hasComponent>
+    <hasConsequences>Ha Conseguenze</hasConsequences>
+    <hasIntent>Ha Intento</hasIntent>
+    <hasUnitTest>Ha Test di Unità</hasUnitTest>
+    <isCloneOf>E' Clone di</isCloneOf>
+    <isSpecializationOf>E' una Specializzazione di</isSpecializationOf>
+    <reengineeredFrom>(Re)Ingegnerizzato da</reengineeredFrom>
+    <relatedCPs>Content Pattern Associati</relatedCPs>
+    <scenarios>Scenari</scenarios>
 </labels>
