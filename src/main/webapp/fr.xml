@@ -1,90 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <labels>
-    <ontology>Ontologie</ontology>
-    <ontologysource>Source d'ontologie</ontologysource>
-    <visualisation>Autres visualisations</visualisation>
-    <visualiseitwith>Visualiser avec</visualiseitwith>
-    <date>Date</date>
-    <currentversion>Version courante</currentversion>
-    <previousversion>Versions précédentes</previousversion>
-    <backwardcompatiblewith>Rétro compatible avec</backwardcompatiblewith>
-    <incompatibleWith>Incompatible avec</incompatibleWith>
-    <abstract>Résumé</abstract>
-    <introduction>Introduction</introduction>
-    <disjointclasses>Toutes classes disjointes</disjointclasses>
-    <subclassdefinition>Définitions des sous-classes</subclassdefinition>
-    <equivalentdefinition>Définitions équivalentes</equivalentdefinition>
-    <issubclassof>Est sous-classe de</issubclassof>
-    <isequivalentto>Est équivalent à</isequivalentto>
-    <functional>Fonctionnel</functional>
-    <inversefunctional>Inversement fonctionnel</inversefunctional>
-    <reflexive>réflexive</reflexive>
-    <irreflexive>irréflexive</irreflexive>
-    <symmetric>symétrique</symmetric>
-    <asymmetric>asymétrique</asymmetric>
-    <transitive>transitive</transitive>
-    <isdefinedby>est défini par</isdefinedby>
-    <belongsto>appartient à</belongsto>
-    <issameas>est identique à</issameas>
-    <isalsodefinedas>est aussi défini comme</isalsodefinedas>
-    <isdisjointwith>est disjoint de</isdisjointwith>
-    <haskeys>a pour clefs</haskeys>
-    <hassuperclasses>a pour super-classes</hassuperclasses>
-    <hassubclasses>a pour sous-classes</hassubclasses>
-    <isindomainof>a pour domaines</isindomainof>
-    <isinrangeof>a pour cibles</isinrangeof>
-    <hasmembers>a pour membres</hasmembers>
-    <isinverseof>est inverse de</isinverseof>
-    <hassubpropertychains>a pour chaînes de sous-propriétés</hassubpropertychains>
-    <hasequivalentproperties>a pour propriétés équivalentes</hasequivalentproperties>
-    <hassuperproperties>a pour super-propriétés</hassuperproperties>
-    <hassubproperties>a pour sous-propriétés</hassubproperties>
-    <hasdomain>a pour domaines</hasdomain>
-    <hasrange>a pour cibles</hasrange>
-    <importedontologies>Ontologies importées</importedontologies>
-    <individualassertions>a pour assertions</individualassertions>
-    <authors>Auteurs</authors>
-    <contributors>Contributeurs</contributors>
-    <publisher>Publicateur</publisher>
-    <toc>Table des matières</toc>
-    <tocabbr>Table des matières</tocabbr>
-    <backto>Retour à</backto>
-    <class>classe</class>
-    <classes>Classes</classes>
-    <objectproperty>Propriété d'objet</objectproperty>
-    <objectproperties>Propriétés d'objets</objectproperties>
-    <dataproperty>Propriété de données</dataproperty>
-    <dataproperties>Propriétés de données</dataproperties>
-    <namedindividual>Individu nommé</namedindividual>
-    <namedindividuals>Individus nommés</namedindividuals>
-    <annotationproperty>Annotation de propriété</annotationproperty>
-    <annotationproperties>Annotations de propriétés</annotationproperties>
-    <datarange>Donnée cibles</datarange>
-    <dataranges>Données cibles</dataranges>
-    <generalaxioms>Axiomes généraux</generalaxioms>
-    <rule>Règle</rule>
-    <rules>Règles SWRL</rules>
-    <namespace>Espace de nommage par défaut</namespace>
-    <namespaces>Déclarations d'espaces de nommage</namespaces>
-    <endnote>Ce document HTML a été obtenu par traitement du code source d'ontologie via</endnote>
-    <developedby>Développé par</developedby>
-    <or>ou</or>
-    <classtoc>les classes</classtoc>
-    <objectpropertytoc>propriétés d'objets</objectpropertytoc>
-    <datapropertytoc>propriétés de données</datapropertytoc>
-    <annotationpropertytoc>propriétés d'annotations</annotationpropertytoc>
-    <namedindividualtoc>les individus nommés</namedindividualtoc>
-    <hascharacteristics>a pour caractéristiques</hascharacteristics>
-    <!-- To translate in French -->
-    <coversRequirements>Covers requirements</coversRequirements>
-    <extractedFrom>Extracted from</extractedFrom>
-    <hasComponent>Has component</hasComponent>
-    <hasConsequences>Has Consequences</hasConsequences>
-    <hasIntent>Has Intent</hasIntent>
-    <hasUnitTest>Has Unit Test</hasUnitTest>
-    <isCloneOf>Is Clone Of</isCloneOf>
-    <isSpecializationOf>Is Specialization Of</isSpecializationOf>
-    <reengineeredFrom>Reengineered From</reengineeredFrom>
-    <relatedCPs>Related Content Patterns</relatedCPs>
-    <scenarios>Scenarios</scenarios>
+	<ontology>Ontologie</ontology>
+	<ontologysource>Source d'ontologie</ontologysource>
+	<visualisation>Autres visualisations</visualisation>
+	<visualiseitwith>Visualiser avec</visualiseitwith>
+	<date>Date</date>
+	<currentversion>Version courante</currentversion>
+	<previousversion>Versions précédentes</previousversion>
+	<backwardcompatiblewith>Rétro compatible avec</backwardcompatiblewith>
+	<incompatibleWith>Incompatible avec</incompatibleWith>
+	<abstract>Résumé</abstract>
+	<introduction>Introduction</introduction>
+	<disjointclasses>Toutes classes disjointes</disjointclasses>
+	<subclassdefinition>Définitions des sous-classes</subclassdefinition>
+	<equivalentdefinition>Définitions équivalentes</equivalentdefinition>
+	<issubclassof>Est sous-classe de</issubclassof>
+	<isequivalentto>Est équivalent à</isequivalentto>
+	<functional>Fonctionnel</functional>
+	<inversefunctional>Inversement fonctionnel</inversefunctional>
+	<reflexive>réflexive</reflexive>
+	<irreflexive>irréflexive</irreflexive>
+	<symmetric>symétrique</symmetric>
+	<asymmetric>asymétrique</asymmetric>
+	<transitive>transitive</transitive>
+	<isdefinedby>est défini par</isdefinedby>
+	<belongsto>appartient à</belongsto>
+	<issameas>est identique à</issameas>
+	<isalsodefinedas>est aussi défini comme</isalsodefinedas>
+	<isdisjointwith>est disjoint de</isdisjointwith>
+	<haskeys>a pour clefs</haskeys>
+	<hassuperclasses>a pour super-classes</hassuperclasses>
+	<hassubclasses>a pour sous-classes</hassubclasses>
+	<isindomainof>a pour domaines</isindomainof>
+	<isinrangeof>a pour cibles</isinrangeof>
+	<hasmembers>a pour membres</hasmembers>
+	<isinverseof>est inverse de</isinverseof>
+	<hassubpropertychains>a pour chaînes de sous-propriétés
+	</hassubpropertychains>
+	<hasequivalentproperties>a pour propriétés équivalentes
+	</hasequivalentproperties>
+	<hassuperproperties>a pour super-propriétés</hassuperproperties>
+	<hassubproperties>a pour sous-propriétés</hassubproperties>
+	<hasdomain>a pour domaines</hasdomain>
+	<hasrange>a pour cibles</hasrange>
+	<importedontologies>Ontologies importées</importedontologies>
+	<individualassertions>a pour assertions</individualassertions>
+	<authors>Auteurs</authors>
+	<contributors>Contributeurs</contributors>
+	<publisher>Publicateur</publisher>
+	<toc>Table des matières</toc>
+	<tocabbr>Table des matières</tocabbr>
+	<backto>Retour à</backto>
+	<class>classe</class>
+	<classes>Classes</classes>
+	<objectproperty>Propriété d'objet</objectproperty>
+	<objectproperties>Propriétés d'objets</objectproperties>
+	<dataproperty>Propriété de données</dataproperty>
+	<dataproperties>Propriétés de données</dataproperties>
+	<namedindividual>Individu nommé</namedindividual>
+	<namedindividuals>Individus nommés</namedindividuals>
+	<annotationproperty>Annotation de propriété</annotationproperty>
+	<annotationproperties>Annotations de propriétés</annotationproperties>
+	<datarange>Donnée cibles</datarange>
+	<dataranges>Données cibles</dataranges>
+	<generalaxioms>Axiomes généraux</generalaxioms>
+	<rule>Règle</rule>
+	<rules>Règles SWRL</rules>
+	<namespace>Espace de nommage par défaut</namespace>
+	<namespaces>Déclarations d'espaces de nommage</namespaces>
+	<endnote>Ce document HTML a été obtenu par traitement du code source
+		d'ontologie via</endnote>
+	<developedby>Développé par</developedby>
+	<or>ou</or>
+	<classtoc>les classes</classtoc>
+	<objectpropertytoc>propriétés d'objets</objectpropertytoc>
+	<datapropertytoc>propriétés de données</datapropertytoc>
+	<annotationpropertytoc>propriétés d'annotations</annotationpropertytoc>
+	<namedindividualtoc>les individus nommés</namedindividualtoc>
+	<hascharacteristics>a pour caractéristiques</hascharacteristics>
+	<!-- Translation of the following labels from English to French is courtesy 
+		of Eleonora <eleonora.marzi@unibo.it> -->
+	<coversRequirements>Réponds Besoins</coversRequirements>
+	<extractedFrom>Tiré de</extractedFrom>
+	<hasComponent>A Composant</hasComponent>
+	<hasConsequences>A Conséquences</hasConsequences>
+	<hasIntent>A But </hasIntent>
+	<hasUnitTest>Unité d'Evaluation</hasUnitTest>
+	<isCloneOf>Est Clone De</isCloneOf>
+	<isSpecializationOf>Est Spécialisation De</isSpecializationOf>
+	<reengineeredFrom>Conçu A partir De</reengineeredFrom>
+	<relatedCPs>CPsReliés</relatedCPs>
+	<scenarios>Cas de figure</scenarios>
 </labels>
