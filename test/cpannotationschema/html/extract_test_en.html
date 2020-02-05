@@ -1,0 +1,65 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:cpannotationschema="http://www.ontologydesignpatterns.org/schemas/cpannotationschema.owl#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link href="extract_test_en_files/owl.css" rel="stylesheet" type="text/css"><link href="extract_test_en_files/Primer.css" rel="stylesheet" type="text/css"><link href="extract_test_en_files/rec.css" rel="stylesheet" type="text/css"><link href="extract_test_en_files/extra.css" rel="stylesheet" type="text/css"><link rel="shortcut icon" href="http://localhost:8080/lode/favicon.ico"><script src="extract_test_en_files/jquery_002.js"></script><script src="extract_test_en_files/jquery.js"></script><script src="extract_test_en_files/marked.js"></script><script>
+			$(document).ready(
+			function () {
+			jQuery(".markdown").each(function(el){
+			jQuery(this).after(marked(jQuery(this).text())).remove()});
+			var list =
+			$('a[name="
+			http://localhost/test.owl
+			"]');
+			if (list.size() != 0) {
+			var element = list.first();
+			$.scrollTo(element);
+			}
+			});
+		</script></head><body><div class="head"><dl><dt>IRI:</dt><dd>https://w3id.org/2020/1/untitled-ontology-246</dd></dl><dl><dt>Imported Ontologies
+					:
+				</dt><dd><a href="http://www.ontologydesignpatterns.org/schemas/cpannotationschema.owl">http://www.ontologydesignpatterns.org/schemas/cpannotationschema.owl</a> (<a href="http://localhost/lode/extract?url=http://www.ontologydesignpatterns.org/schemas/cpannotationschema.owl">visualise it with
+				LODE
+			</a>)</dd></dl><dl><dt>Extracted from
+					:
+				</dt><dd><a href="http://example.org/extractedFrom1">http://example.org/extractedFrom1</a> (<a href="http://localhost/lode/extract?url=http://example.org/extractedFrom1">visualise it with
+				LODE
+			</a>)</dd></dl><dl><dt>Has component
+					:
+				</dt><dd><a href="http://www.ontologydesignpatterns.org/ont/mario/action.owl">http://www.ontologydesignpatterns.org/ont/mario/action.owl</a> (<a href="http://localhost/lode/extract?url=http://www.ontologydesignpatterns.org/ont/mario/action.owl">visualise it with
+				LODE
+			</a>)</dd><dd><a href="http://www.ontologydesignpatterns.org/ont/mario/time.owl">http://www.ontologydesignpatterns.org/ont/mario/time.owl</a> (<a href="http://localhost/lode/extract?url=http://www.ontologydesignpatterns.org/ont/mario/time.owl">visualise it with
+				LODE
+			</a>)</dd></dl><dl><dt>Has Consequences
+					:
+				</dt><dd>- Consequence 1</dd><dd>- Consequence 2</dd></dl><dl><dt>Has Intent
+					:
+				</dt><dd>- Intent 1</dd><dd>- Intent 2</dd></dl><dl><dt>Has Unit Test
+					:
+				</dt><dd>- SELECT * {
+
+?s ?p ?o 
+
+}</dd><dd>- SELECT * { ?s ?p ?o}</dd></dl><dl><dt>Is Specialization Of
+					:
+				</dt><dd><a href="http://example.org/ont1">http://example.org/ont1</a> (<a href="http://localhost/lode/extract?url=http://example.org/ont1">visualise it with
+				LODE
+			</a>)</dd><dd><a href="http://example.org/ont2">http://example.org/ont2</a> (<a href="http://localhost/lode/extract?url=http://example.org/ont2">visualise it with
+				LODE
+			</a>)</dd></dl><dl><dt>Reengineered From
+					:
+				</dt><dd>- <a href="http://example.com/ont3">http://example.com/ont3</a> (<a href="http://localhost/lode/extract?url=http://example.com/ont3">visualise it with
+						LODE
+					</a>)</dd><dd>- This is to test reegineeredFrom with natural language</dd></dl><dl><dt>Related Content Patterns
+					:
+				</dt><dd><a href="http://example.com/relatedCP1">http://example.com/relatedCP1</a> (<a href="http://localhost/lode/extract?url=http://example.com/relatedCP1">visualise it with
+				LODE
+			</a>)</dd><dd><a href="http://example.com/relatedCP2">http://example.com/relatedCP2</a> (<a href="http://localhost/lode/extract?url=http://example.com/relatedCP2">visualise it with
+				LODE
+			</a>)</dd></dl><dl><dt>Scenarios
+					:
+				</dt><dd>- scenario1</dd><dd>- scenario2</dd></dl><dl><dt>Other visualisation
+						:
+					</dt><dd><a href="http://localhost:8080/lode/source?url=http://localhost/test.owl">Ontology source</a>
+						-
+						<a href="http://visualdataweb.de/webvowl/#iri=http://localhost/test.owl">WebVowl</a></dd></dl></div><hr><div id="toc"><h2>Table of Content</h2><ol><li><a href="#classes">Classes</a></li><li><a href="#objectproperties">Object Properties</a></li><li><a href="#namespacedeclarations">Namespace Declarations</a></li></ol></div><div id="classes"><h2>Classes</h2><ul class="hlist"><li><a href="#d4e68" title="https://w3id.org/2020/1/untitled-ontology-246/Person"><span>person</span></a></li></ul><div id="d4e68" class="entity"><a name="https://w3id.org/2020/1/untitled-ontology-246/Person"></a><h3>person<sup title="class" class="type-c">c</sup><span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a></span></h3><p><strong>IRI:</strong> https://w3id.org/2020/1/untitled-ontology-246/Person</p><dl class="isCloneOf"><dt>Is Clone Of</dt><dd><a href="http://person.example/person">http://person.example/person</a></dd><dd><a href="http://xmlns.com/foaf/0.1/Person">http://xmlns.com/foaf/0.1/Person</a></dd></dl></div></div><div id="objectproperties"><h2>Object Properties</h2><ul class="hlist"><li><a href="#d4e58" title="https://w3id.org/2020/1/untitled-ontology-246/name"><span>name</span></a></li></ul><div id="d4e58" class="entity"><a name="https://w3id.org/2020/1/untitled-ontology-246/name"></a><h3>name<sup title="object property" class="type-op">op</sup><span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a></span></h3><p><strong>IRI:</strong> https://w3id.org/2020/1/untitled-ontology-246/name</p><dl class="isCloneOf"><dt>Is Clone Of</dt><dd><a href="http://xmlns.com/foaf/0.1/givenName">http://xmlns.com/foaf/0.1/givenName</a></dd></dl></div></div><div id="namespacedeclarations"><h2>Namespace Declarations <span class="backlink"> back to <a href="#toc">ToC</a></span></h2><dl><dt><em>default namespace</em></dt><dd>https://w3id.org/2020/1/untitled-ontology-246#</dd><dt>0-1</dt><dd>http://xmlns.com/foaf/0.1/</dd><dt>1</dt><dd>https://w3id.org/2020/1/</dd><dt>cpannotationschema</dt><dd>http://www.ontologydesignpatterns.org/schemas/cpannotationschema.owl#</dd><dt>example-com</dt><dd>http://example.com/</dd><dt>example-org</dt><dd>http://example.org/</dd><dt>mario</dt><dd>http://www.ontologydesignpatterns.org/ont/mario/</dd><dt>owl</dt><dd>http://www.w3.org/2002/07/owl#</dd><dt>person-example</dt><dd>http://person.example/</dd><dt>rdf</dt><dd>http://www.w3.org/1999/02/22-rdf-syntax-ns#</dd><dt>rdfs</dt><dd>http://www.w3.org/2000/01/rdf-schema#</dd><dt>schemas</dt><dd>http://www.ontologydesignpatterns.org/schemas/</dd><dt>untitled-ontology-246</dt><dd>https://w3id.org/2020/1/untitled-ontology-246/</dd><dt>xsd</dt><dd>http://www.w3.org/2001/XMLSchema#</dd></dl></div><p class="endnote">This HTML document was obtained by processing the OWL ontology source code through <a href="http://www.essepuntato.it/lode">LODE</a>, <em>Live OWL Documentation Environment</em>, developed by <a href="http://www.essepuntato.it/">Silvio Peroni</a>
+				.
+			</p>
+</body></html>
