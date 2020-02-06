@@ -1,117 +1,147 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>it.essepuntato</groupId>
-  <artifactId>LODE</artifactId>
-  <version>1.3-SNAPSHOT</version>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>it.essepuntato</groupId>
+	<artifactId>LODE</artifactId>
+	<version>1.3-SNAPSHOT</version>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<apachecommons.version>2.1.1</apachecommons.version>
+		<apachecommonsbeanutils.version>1.9.3</apachecommonsbeanutils.version>
+		<log4j.version>1.7.7</log4j.version>
+		<sl4j.version>1.7.7</sl4j.version>
+	</properties>
 
-  <dependencies>
+	<dependencies>
 
-    <!-- aterm -->
-    <dependency>
-      <groupId>com.github.ansell.aterms</groupId>
-      <artifactId>aterm-java</artifactId>
-      <version>1.8.2</version>
-    </dependency>
+		<!-- aterm -->
+		<dependency>
+			<groupId>com.github.ansell.aterms</groupId>
+			<artifactId>aterm-java</artifactId>
+			<version>1.8.2</version>
+		</dependency>
 
-    <!-- saxon-he -->
-    <dependency>
-      <groupId>net.sf.saxon</groupId>
-      <artifactId>Saxon-HE</artifactId>
-      <version>9.5.1-6</version>
-    </dependency>
+		<!-- saxon-he -->
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>Saxon-HE</artifactId>
+			<version>9.5.1-6</version>
+		</dependency>
 
-    <!-- jgrapht (jdk 1.5) -->
-    <dependency>
-      <groupId>org.jgrapht</groupId>
-      <artifactId>jgrapht-jdk1.5</artifactId>
-      <version>0.7.3</version>
-    </dependency>
+		<!-- jgrapht (jdk 1.5) -->
+		<dependency>
+			<groupId>org.jgrapht</groupId>
+			<artifactId>jgrapht-jdk1.5</artifactId>
+			<version>0.7.3</version>
+		</dependency>
 
-    <!-- pellet -->
-    <dependency>
-      <groupId>com.github.ansell.pellet</groupId>
-      <artifactId>pellet-core</artifactId>
-      <version>2.3.6-ansell</version>
-    </dependency>
-    <dependency>
-      <groupId>com.github.ansell.pellet</groupId>
-      <artifactId>pellet-datatypes</artifactId>
-      <version>2.3.6-ansell</version>
-    </dependency>
-    <dependency>
-      <groupId>com.github.ansell.pellet</groupId>
-      <artifactId>pellet-el</artifactId>
-      <version>2.3.6-ansell</version>
-    </dependency>
-    <dependency>
-      <groupId>com.github.ansell.pellet</groupId>
-      <artifactId>pellet-owlapiv3</artifactId>
-      <version>2.3.6-ansell</version>
-    </dependency>
-    <dependency>
-      <groupId>com.github.ansell.pellet</groupId>
-      <artifactId>pellet-rules</artifactId>
-      <version>2.3.6-ansell</version>
-    </dependency>
+		<!-- pellet -->
+		<dependency>
+			<groupId>com.github.ansell.pellet</groupId>
+			<artifactId>pellet-core</artifactId>
+			<version>2.3.6-ansell</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.ansell.pellet</groupId>
+			<artifactId>pellet-datatypes</artifactId>
+			<version>2.3.6-ansell</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.ansell.pellet</groupId>
+			<artifactId>pellet-el</artifactId>
+			<version>2.3.6-ansell</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.ansell.pellet</groupId>
+			<artifactId>pellet-owlapiv3</artifactId>
+			<version>2.3.6-ansell</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.ansell.pellet</groupId>
+			<artifactId>pellet-rules</artifactId>
+			<version>2.3.6-ansell</version>
+		</dependency>
 
-    <!-- owlapi -->
-    <dependency>
-      <groupId>net.sourceforge.owlapi</groupId>
-      <artifactId>owlapi-distribution</artifactId>
-      <version>3.5.0</version>
-    </dependency>
+		<!-- owlapi -->
+		<dependency>
+			<groupId>net.sourceforge.owlapi</groupId>
+			<artifactId>owlapi-distribution</artifactId>
+			<version>3.5.0</version>
+		</dependency>
 
-    <!-- servlets -->
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>2.5</version>
-      <scope>provided</scope>
-    </dependency>
+		<!-- servlets -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
 
-  </dependencies>
+		<!-- Commons configuration -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-configuration2</artifactId>
+			<version>${apachecommons.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${apachecommonsbeanutils.version}</version>
+		</dependency>
+
+		<!-- Logging LOG4J - SLF4J -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<version>${sl4j.version}</version>
+		</dependency>
+
+	</dependencies>
 
 
-  <build>
+	<build>
 
-    <plugins>
+		<plugins>
 
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
-      </plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
 
-      <plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <configuration>
-          <stopPort>9966</stopPort>
-          <stopKey>foo</stopKey>
-          <scanIntervalSeconds>10</scanIntervalSeconds>
-          <webApp>
-            <contextPath>/lode</contextPath>
-          </webApp>
-          <connectors>
-            <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-              <port>8080</port>
-              <maxIdleTime>60000</maxIdleTime>
-              <forwarded>true</forwarded>
-            </connector>
-          </connectors>
-        </configuration>
-      </plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<configuration>
+					<stopPort>9966</stopPort>
+					<stopKey>foo</stopKey>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<webApp>
+						<contextPath>/lode</contextPath>
+					</webApp>
+					<connectors>
+						<connector
+							implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>8080</port>
+							<maxIdleTime>60000</maxIdleTime>
+							<forwarded>true</forwarded>
+						</connector>
+					</connectors>
+				</configuration>
+			</plugin>
 
-    </plugins>
+		</plugins>
 
-  </build>
+	</build>
 
 </project>

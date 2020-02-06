@@ -75,4 +75,15 @@
     <annotationpropertytoc>Annotation Property ToC</annotationpropertytoc>
     <namedindividualtoc>Named Individual ToC</namedindividualtoc>
     <hascharacteristics>has characteristics</hascharacteristics>
+    <coversRequirements>Covers requirements</coversRequirements>
+    <extractedFrom>Extracted from</extractedFrom>
+    <hasComponent>Has component</hasComponent>
+    <hasConsequences>Has Consequences</hasConsequences>
+    <hasIntent>Has Intent</hasIntent>
+    <hasUnitTest>Has Unit Test</hasUnitTest>
+    <isCloneOf>Is Clone Of</isCloneOf>
+    <isSpecializationOf>Is Specialization Of</isSpecializationOf>
+    <reengineeredFrom>Reengineered From</reengineeredFrom>
+    <relatedCPs>Related Content Patterns</relatedCPs>
+    <scenarios>Scenarios</scenarios>
 </labels>
