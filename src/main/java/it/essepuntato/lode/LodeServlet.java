@@ -101,6 +101,7 @@ public class LodeServlet extends HttpServlet {
 	private String xsltURL = "http://lode.sourceforge.net/xslt";
 	private String cssLocation = "http://lode.sourceforge.net/css/";
 	private int maxTentative = 3;
+	private String CONFIG = "config.properties";
 	private LODEConfiguration conf;
 
 	/**
@@ -446,7 +447,7 @@ public class LodeServlet extends HttpServlet {
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 
 		if (conf == null) {
-			conf = LODEConfiguration.getInstance(getServletContext().getRealPath("config.propeties"));
+			conf = LODEConfiguration.getInstance(getServletContext().getRealPath(CONFIG));
 		}
 
 		Transformer transformer = tfactory.newTransformer(new StreamSource(xsltURL));

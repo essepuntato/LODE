@@ -7,9 +7,9 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    container_name: pdnd-ontopia-lode
-    image: teamdigitale/pdnd-ontopia-lode
-    stdin_open: true
-    tty: true
+      args:
+         LODE_EXTERNAL_URL: http://localhost:8080/lode
+         WEBVOWL_EXTERNAL_URL: http://visualdataweb.de/webvowl/#iri=
+    container_name: lode
     ports:
       - 8080:8080/tcp
