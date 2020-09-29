@@ -8,7 +8,7 @@ RUN cd /opt && \
 
 RUN echo "externalURL=${LODE_EXTERNAL_URL}\nwebvowl=${WEBVOWL_EXTERNAL_URL}" > /opt/LODE/src/main/webapp/config.propeties
 
-RUN cat /opt/LODE/src/main/webapp/config.propexxwties 
+#RUN cat /opt/LODE/src/main/webapp/config.propexxwties
 
 WORKDIR /opt/LODE
 
