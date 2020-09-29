@@ -175,6 +175,9 @@ public class LodeServlet extends HttpServlet {
 		String protocol = request.getProtocol();
 		protocol = protocol.substring(0, protocol.indexOf("/")).toLowerCase();
 		cssLocation = "http" + requestURL.substring(start, index) + File.separator;
+		if (conf.useHTTPs()) {
+			cssLocation = "https" + requestURL.substring(start, index) + File.separator;
+		}
 		System.out.println("____#### " + request.getServerPort() + " : " + protocol);
 
 	}
@@ -242,7 +245,7 @@ public class LodeServlet extends HttpServlet {
 					manager.addAxioms(ontology, importedOntology.getAxioms());
 				}
 			} else {
-				//manager.setSilentMissingImportsHandling(true);
+				// manager.setSilentMissingImportsHandling(true);
 				ontology = manager.loadOntology(IRI.create(ontologyURL.toString()));
 			}
 
@@ -337,7 +340,11 @@ public class LodeServlet extends HttpServlet {
 
 	private OWLOntology parseWithReasoner(OWLOntologyManager manager, OWLOntology ontology) {
 		try {
-			PelletOptions.load(new URL("http://" + cssLocation + "pellet.properties"));
+			if (conf.useHTTPs()) {
+				PelletOptions.load(new URL("https://" + cssLocation + "pellet.properties"));
+			} else {
+				PelletOptions.load(new URL("http://" + cssLocation + "pellet.properties"));
+			}
 			PelletReasoner reasoner = PelletReasonerFactory.getInstance().createReasoner(ontology);
 			reasoner.getKB().prepare();
 			List<InferredAxiomGenerator<? extends OWLAxiom>> generators = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>();
@@ -419,8 +426,9 @@ public class LodeServlet extends HttpServlet {
 		}
 	}
 
-	private void applyAnnotations(OWLEntity aEntity, Map<OWLEntity, Collection<OWLAnnotationAssertionAxiom>> entityAnnotations,
-			OWLOntologyManager manager, OWLOntology ontology) {
+	private void applyAnnotations(OWLEntity aEntity,
+			Map<OWLEntity, Collection<OWLAnnotationAssertionAxiom>> entityAnnotations, OWLOntologyManager manager,
+			OWLOntology ontology) {
 		Collection<OWLAnnotationAssertionAxiom> entityCollection = entityAnnotations.get(aEntity);
 		if (entityCollection != null) {
 			for (OWLAnnotationAssertionAxiom ann : entityCollection) {

@@ -8,7 +8,8 @@ public class LODEConfiguration {
 
 	private static LODEConfiguration instance = null;
 
-	private String externalURL,webvowl;
+	private String externalURL, webvowl;
+	private boolean useHTTPs;
 
 	private LODEConfiguration(String configFile) {
 		try {
@@ -17,6 +18,7 @@ public class LODEConfiguration {
 
 			externalURL = config.getString("externalURL");
 			webvowl = config.getString("webvowl");
+			useHTTPs = config.getBoolean("useHTTPs");
 
 		} catch (ConfigurationException e) {
 			e.printStackTrace();
@@ -34,9 +36,13 @@ public class LODEConfiguration {
 	public String getExternalURL() {
 		return externalURL;
 	}
-	
+
 	public String getWebvowl() {
 		return webvowl;
+	}
+
+	public boolean useHTTPs() {
+		return useHTTPs;
 	}
 
 }
