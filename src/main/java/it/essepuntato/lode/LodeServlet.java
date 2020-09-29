@@ -168,6 +168,9 @@ public class LodeServlet extends HttpServlet {
 	}
 
 	private void resolvePaths(HttpServletRequest request) {
+		if (conf == null) {
+			conf = LODEConfiguration.getInstance(getServletContext().getRealPath(CONFIG));
+		}
 		xsltURL = getServletContext().getRealPath("extraction.xsl");
 		String requestURL = request.getRequestURL().toString();
 		int start = requestURL.indexOf(":");
@@ -340,6 +343,9 @@ public class LodeServlet extends HttpServlet {
 
 	private OWLOntology parseWithReasoner(OWLOntologyManager manager, OWLOntology ontology) {
 		try {
+			if (conf == null) {
+				conf = LODEConfiguration.getInstance(getServletContext().getRealPath(CONFIG));
+			}
 			if (conf.useHTTPs()) {
 				PelletOptions.load(new URL("https://" + cssLocation + "pellet.properties"));
 			} else {
