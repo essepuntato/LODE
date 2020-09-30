@@ -10,6 +10,7 @@ services:
       args:
          LODE_EXTERNAL_URL: http://localhost:8080/lode
          WEBVOWL_EXTERNAL_URL: http://visualdataweb.de/webvowl/#iri=
+         useHTTPs: false
     container_name: lode
     ports:
       - 8080:8080/tcp
