@@ -1,9 +1,18 @@
-FROM openjdk:8
+FROM  maven:3.6.3-jdk-8
 
-RUN apt-get update && apt-get -y install maven git
+ARG LODE_EXTERNAL_URL
+ARG WEBVOWL_EXTERNAL_URL
+ARG USE_HTTPS
 
-WORKDIR /lode
+RUN cd /opt && \
+	git clone https://github.com/essepuntato/LODE.git
 
-EXPOSE 8080 8443
+RUN echo "externalURL=${LODE_EXTERNAL_URL}\nwebvowl=${WEBVOWL_EXTERNAL_URL}\nuseHTTPs=${USE_HTTPS}" > /opt/LODE/src/main/webapp/config.properties
 
-ENTRYPOINT ["mvn", "jetty:run"]
+#RUN cat /opt/LODE/src/main/webapp/config.propexxwties
+
+WORKDIR /opt/LODE
+
+EXPOSE 8080
+
+ENTRYPOINT ["mvn", "clean", "jetty:run"]
