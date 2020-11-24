@@ -1,10 +1,10 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *      
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright (c) 2010-2013, Silvio Peroni <essepuntato@gmail.com>
- * 
+ *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
  * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -85,6 +85,8 @@ import org.xml.sax.SAXException;
 
 import com.clarkparsia.pellet.owlapiv3.PelletReasoner;
 import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
+
+import org.owasp.encoder.Encode;
 
 /**
  * Servlet implementation class LodeServlet
@@ -191,19 +193,19 @@ public class LodeServlet extends HttpServlet {
 	 * considerImportedOntologies, boolean considerImportedClosure, boolean
 	 * useReasoner) throws OWLOntologyCreationException,
 	 * OWLOntologyStorageException, URISyntaxException { String result = content;
-	 * 
+	 *
 	 * if (useOWLAPI) {
-	 * 
+	 *
 	 * List<String> removed = new ArrayList<String>(); if (!considerImportedClosure
 	 * && !considerImportedOntologies) { result = removeImportedAxioms(result,
 	 * removed); }
-	 * 
-	 * 
+	 *
+	 *
 	 * OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-	 * 
+	 *
 	 * OWLOntology ontology = manager.loadOntologyFromOntologyDocument( new
 	 * StringDocumentSource(result));
-	 * 
+	 *
 	 * if (considerImportedClosure || considerImportedOntologies) { Set<OWLOntology>
 	 * setOfImportedOntologies = new HashSet<OWLOntology>(); if
 	 * (considerImportedOntologies) {
@@ -211,18 +213,18 @@ public class LodeServlet extends HttpServlet {
 	 * setOfImportedOntologies.addAll(ontology.getImportsClosure()); } for
 	 * (OWLOntology importedOntology : setOfImportedOntologies) {
 	 * manager.addAxioms(ontology, importedOntology.getAxioms()); } }
-	 * 
+	 *
 	 * if (useReasoner) { ontology = parseWithReasoner(manager, ontology); }
-	 * 
+	 *
 	 * StringDocumentTarget parsedOntology = new StringDocumentTarget();
-	 * 
+	 *
 	 * manager.saveOntology(ontology, new RDFXMLOntologyFormat(), parsedOntology);
 	 * result = parsedOntology.toString();
-	 * 
+	 *
 	 * if (!removed.isEmpty() && !considerImportedClosure &&
 	 * !considerImportedOntologies) { result = addImportedAxioms(result, removed); }
 	 * }
-	 * 
+	 *
 	 * return result; }
 	 */
 
@@ -311,29 +313,29 @@ public class LodeServlet extends HttpServlet {
 	 * DocumentBuilderFactory.newInstance(); factory.setNamespaceAware(true); try {
 	 * DocumentBuilder builder = factory.newDocumentBuilder(); Document document =
 	 * builder.parse(new ByteArrayInputStream(result.getBytes()));
-	 * 
+	 *
 	 * NodeList ontologies =
 	 * document.getElementsByTagNameNS("http://www.w3.org/2002/07/owl#",
 	 * "Ontology"); for (int i = 0; i < ontologies.getLength() ; i++) { Element
 	 * ontology = (Element) ontologies.item(i);
-	 * 
+	 *
 	 * NodeList children = ontology.getChildNodes(); List<Element> removed = new
 	 * ArrayList<Element>(); for (int j = 0; j < children.getLength(); j++) { Node
 	 * child = children.item(j);
-	 * 
+	 *
 	 * if ( child.getNodeType() == Node.ELEMENT_NODE &&
 	 * child.getNamespaceURI().equals("http://www.w3.org/2002/07/owl#") &&
 	 * child.getLocalName().equals("imports")) { removed.add((Element) child); } }
-	 * 
+	 *
 	 * for (Element toBeRemoved : removed) {
 	 * removedImport.add(toBeRemoved.getAttributeNS(
 	 * "http://www.w3.org/1999/02/22-rdf-syntax-ns#", "resource"));
 	 * ontology.removeChild(toBeRemoved); } }
-	 * 
+	 *
 	 * Transformer transformer = TransformerFactory.newInstance().newTransformer();
 	 * StreamResult output = new StreamResult(new StringWriter()); DOMSource source
 	 * = new DOMSource(document); transformer.transform(source, output);
-	 * 
+	 *
 	 * return output.getWriter().toString(); } catch (ParserConfigurationException
 	 * e) { return result; } catch (SAXException e) { return result; } catch
 	 * (IOException e) { return result; } catch (TransformerConfigurationException
@@ -445,7 +447,7 @@ public class LodeServlet extends HttpServlet {
 
 	private String getErrorPage(Exception e) {
 		return "<html>" + "<head><title>LODE error</title></head>" + "<body>" + "<h2>" + "LODE error" + "</h2>"
-				+ "<p><strong>Reason: </strong>" + e.getMessage() + "</p>" + "</body>" + "</html>";
+				+ "<p><strong>Reason: </strong>" + Encode.forHtml(e.getMessage()) + "</p>" + "</body>" + "</html>";
 	}
 
 	private String applyXSLTTransformation(String source, String ontologyUrl, String lang) throws TransformerException {

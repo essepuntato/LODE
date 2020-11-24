@@ -1,10 +1,10 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *      
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright (c) 2010-2013, Silvio Peroni <essepuntato@gmail.com>
- * 
+ *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
  * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -24,12 +24,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.owasp.encoder.Encode;
+
 /**
  * Servlet implementation class GetSource
  */
 public class GetSource extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -42,18 +44,18 @@ public class GetSource extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		SourceExtractor extractor = new SourceExtractor();
 		extractor.addMimeTypes(MimeType.mimeTypes);
 		response.setCharacterEncoding("UTF-8");
-		
+
 		try {
 			String stringURL = request.getParameter("url");
 			String content = "";
-			
+
 			URL ontologyURL = new URL(stringURL);
 			content = extractor.exec(ontologyURL);
-			
+
 			response.setContentType("text/plain");
 			PrintWriter out = response.getWriter();
 			out.println(content);
@@ -65,7 +67,7 @@ public class GetSource extends HttpServlet {
 	}
 
 	private String getErrorPage(Exception e) {
-		return 
+		return
 			"<html>" +
 				"<head><title>LODE error</title></head>" +
 				"<body>" +
@@ -73,7 +75,7 @@ public class GetSource extends HttpServlet {
 					"LODE: get source error" +
 					"</h2>" +
 					"<p><strong>Reason: </strong>" +
-					e.getMessage() +
+					Encode.forHtml(e.getMessage()) +
 					"</p>" +
 				"</body>" +
 			"</html>";
