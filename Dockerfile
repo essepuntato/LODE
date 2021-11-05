@@ -1,18 +1,16 @@
-FROM  maven:3.6.3-jdk-8
+FROM  maven:3.6.3-jdk-8 as build
 
-ARG LODE_EXTERNAL_URL
-ARG WEBVOWL_EXTERNAL_URL
-ARG USE_HTTPS
-
-RUN cd /opt && \
-	git clone https://github.com/essepuntato/LODE.git
-
-RUN echo "externalURL=${LODE_EXTERNAL_URL}\nwebvowl=${WEBVOWL_EXTERNAL_URL}\nuseHTTPs=${USE_HTTPS}" > /opt/LODE/src/main/webapp/config.properties
-
-#RUN cat /opt/LODE/src/main/webapp/config.propexxwties
+ARG LODE_EXTERNAL_URL=true
+ARG WEBVOWL_EXTERNAL_URL=true
+ARG USE_HTTPS=false
 
 WORKDIR /opt/LODE
 
-EXPOSE 8080
+COPY . .
+RUN echo "externalURL=${LODE_EXTERNAL_URL}\nwebvowl=${WEBVOWL_EXTERNAL_URL}\nuseHTTPs=${USE_HTTPS}" > /opt/LODE/src/main/webapp/config.properties
+RUN mvn clean package
 
-ENTRYPOINT ["mvn", "clean", "jetty:run"]
+FROM jetty
+COPY --from=build /opt/LODE/target/LODE-1.3-SNAPSHOT.war /var/lib/jetty/webapps/lode.war
+
+EXPOSE 80
