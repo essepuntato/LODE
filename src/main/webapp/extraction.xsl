@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (c) 2010-2014, Silvio Peroni <essepuntato@gmail.com> Permission 
-	to use, copy, modify, and/or distribute this software for any purpose with 
-	or without fee is hereby granted, provided that the above copyright notice 
-	and this permission notice appear in all copies. THE SOFTWARE IS PROVIDED 
-	"AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE 
-	INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT 
-	SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL 
-	DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, 
-	WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING 
+<!-- Copyright (c) 2010-2014, Silvio Peroni <essepuntato@gmail.com> Permission
+	to use, copy, modify, and/or distribute this software for any purpose with
+	or without fee is hereby granted, provided that the above copyright notice
+	and this permission notice appear in all copies. THE SOFTWARE IS PROVIDED
+	"AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE
+	INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT
+	SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL
+	DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+	WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING
 	OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. -->
 <xsl:stylesheet
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -23,7 +23,9 @@
 	xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:f="http://www.essepuntato.it/xslt/function"
+	xmlns:lode-fn="https://w3id.org/lode/fn"
 	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
 	xmlns:cpannotationschema="http://www.ontologydesignpatterns.org/schemas/cpannotationschema.owl#"
 	xmlns="http://www.w3.org/1999/xhtml">
 
@@ -120,6 +122,9 @@
 				<xsl:when test="owl:Ontology">
 					<xsl:apply-templates select="owl:Ontology" />
 				</xsl:when>
+				<xsl:when test="skos:ConceptScheme">
+					<xsl:apply-templates select="skos:ConceptScheme" />
+				</xsl:when>
 				<xsl:otherwise>
 					<xsl:call-template name="structure" />
 				</xsl:otherwise>
@@ -206,6 +211,7 @@
 				<xsl:call-template name="get.reengineeredFrom" />
 				<xsl:call-template name="get.relatedCPs" />
 				<xsl:call-template name="get.scenarios" />
+				<xsl:call-template name="get.topconcepts" />
 				<dl>
 					<dt>
 						<xsl:value-of
@@ -232,6 +238,7 @@
 				select="dc:description[normalize-space() != ''] , dc:description[@*:resource]"
 				mode="ontology" />
 			<xsl:call-template name="get.classes" />
+			<xsl:call-template name="get.concepts" />
 			<xsl:call-template name="get.objectproperties" />
 			<xsl:call-template name="get.dataproperties" />
 			<xsl:call-template name="get.namedindividuals" />
@@ -256,7 +263,7 @@
 		</body>
 	</xsl:template>
 
-	<xsl:template match="owl:Ontology">
+	<xsl:template match="owl:Ontology|skos:ConceptScheme">
 		<xsl:call-template name="structure" />
 	</xsl:template>
 
@@ -279,7 +286,7 @@
 			select="substring($url,$index + 1)" as="xs:string?" />
 
 		<p class="image">
-			<!-- <span><xsl:value-of select="$index,$extension,string-length($url)" 
+			<!-- <span><xsl:value-of select="$index,$extension,string-length($url)"
 				separator=" - " /></span> -->
 			<object data="{@*:resource}">
 				<xsl:if test="$extension != ''">
@@ -370,6 +377,15 @@
 				LODE
 			</a>
 			<xsl:text>)</xsl:text>
+		</dd>
+	</xsl:template>
+
+	<xsl:template match="skos:hasTopConcept">
+	stocazz
+		<dd>
+			<a href="{@*:resource}">
+				<xsl:value-of select="@*:resource" />
+			</a>
 		</dd>
 	</xsl:template>
 
@@ -482,7 +498,7 @@
 						<xsl:value-of select="@*:resource" />
 					</a>
 					<xsl:text> (</xsl:text>
-					<!-- <a href="http://www.essepuntato.it/lode/owlapi/{@*:resource}"><xsl:value-of 
+					<!-- <a href="http://www.essepuntato.it/lode/owlapi/{@*:resource}"><xsl:value-of
 						select="f:getDescriptionLabel('visualiseitwith')" /> LODE</a> -->
 					<a href="{$lode-external-url}/extract?url={@*:resource}">
 						<xsl:value-of
@@ -550,6 +566,21 @@
 			<xsl:call-template name="get.class.description" />
 			<xsl:apply-templates
 				select="dc:description[normalize-space() != ''] , dc:description[@*:resource]" />
+		</div>
+	</xsl:template>
+
+	<xsl:template match="skos:Concept">
+		<div id="{generate-id()}" class="entity">
+			<xsl:call-template name="get.entity.name">
+				<xsl:with-param name="toc" select="'classes'"
+					tunnel="yes" as="xs:string" />
+				<xsl:with-param name="toc.string"
+					select="f:getDescriptionLabel('concepttoc')" tunnel="yes"
+					as="xs:string" />
+			</xsl:call-template>
+			<xsl:call-template name="get.entity.metadata" />
+			<xsl:apply-templates select="rdfs:comment" />
+			<xsl:call-template name="get.concept.description" />
 		</div>
 	</xsl:template>
 
@@ -653,7 +684,7 @@
 	</xsl:template>
 
 	<xsl:template
-		match="owl:equivalentClass | rdfs:subClassOf | rdfs:subPropertyOf">
+		match="owl:equivalentClass | rdfs:subClassOf | rdfs:subPropertyOf | skos:broader | skos:narrower">
 		<xsl:param name="list" select="true()" tunnel="yes"
 			as="xs:boolean" />
 		<xsl:choose>
@@ -753,31 +784,35 @@
 		</xsl:choose>
 	</xsl:function>
 
-	<!-- <xsl:function name="f:getLabel" as="xs:string"> <xsl:param name="iri" 
-		as="xs:string" /> <xsl:variable name="node" select="$root//rdf:RDF/element()[(@*:about 
-		= $iri or @*:ID = $iri) and exists(rdfs:label)][1]" as="element()*" /> <xsl:choose> 
-		<xsl:when test="exists($node/rdfs:label)"> <xsl:value-of select="$node/rdfs:label[f:isInLanguage(.)]" 
-		/> </xsl:when> <xsl:otherwise> <xsl:variable name="prefix" select="f:getPrefixFromIRI($iri)" 
-		as="xs:string*" /> <xsl:choose> <xsl:when test="empty($prefix)"> <xsl:value-of 
-		select="$iri" /> </xsl:when> <xsl:otherwise> <xsl:value-of select="concat($prefix,':',substring-after($iri, 
-		$prefixes-uris[index-of($prefixes-uris,$prefix)[1] + 1]))" /> </xsl:otherwise> 
+	<!-- <xsl:function name="f:getLabel" as="xs:string"> <xsl:param name="iri"
+		as="xs:string" /> <xsl:variable name="node" select="$root//rdf:RDF/element()[(@*:about
+		= $iri or @*:ID = $iri) and exists(rdfs:label)][1]" as="element()*" /> <xsl:choose>
+		<xsl:when test="exists($node/rdfs:label)"> <xsl:value-of select="$node/rdfs:label[f:isInLanguage(.)]"
+		/> </xsl:when> <xsl:otherwise> <xsl:variable name="prefix" select="f:getPrefixFromIRI($iri)"
+		as="xs:string*" /> <xsl:choose> <xsl:when test="empty($prefix)"> <xsl:value-of
+		select="$iri" /> </xsl:when> <xsl:otherwise> <xsl:value-of select="concat($prefix,':',substring-after($iri,
+		$prefixes-uris[index-of($prefixes-uris,$prefix)[1] + 1]))" /> </xsl:otherwise>
 		</xsl:choose> </xsl:otherwise> </xsl:choose> </xsl:function> -->
 	<xsl:function name="f:getLabel" as="xs:string">
 		<xsl:param name="iri" as="xs:string" />
 
 		<xsl:variable name="node"
-			select="$root//rdf:RDF/element()[(@*:about = $iri or @*:ID = $iri) and exists(rdfs:label)][1]"
+			select="$root//rdf:RDF//element()[(@*:about = $iri or @*:ID = $iri)][1]"
 			as="element()*" />
 		<xsl:choose>
 			<xsl:when test="exists($node/rdfs:label)">
 				<xsl:value-of
 					select="$node/rdfs:label[f:isInLanguage(.)]" />
 			</xsl:when>
+			<xsl:when test="exists($node/skos:prefLabel)">
+				<xsl:value-of
+					select="$node/skos:prefLabel[f:isInLanguage(.)]" />
+			</xsl:when>
 			<xsl:otherwise>
 				<xsl:variable name="localName" as="xs:string?">
 					<xsl:variable name="current-index"
-						select="if (contains($iri,'#')) 
-                                    then f:string-first-index-of($iri,'#') 
+						select="if (contains($iri,'#'))
+                                    then f:string-first-index-of($iri,'#')
                                     else f:string-last-index-of(replace($iri,'://','---'),'/')"
 						as="xs:integer?" />
 					<xsl:if
@@ -1183,10 +1218,36 @@
 		<xsl:call-template name="get.version" />
 		<xsl:call-template name="get.author" />
 		<xsl:call-template name="get.original.source" />
+		<xsl:call-template name="get.inscheme" />
 		<xsl:call-template name="get.entity.isCloneOf" />
 	</xsl:template>
 
-	<xsl:template name="get.original.source">
+	<xsl:template name="get.inscheme">
+		<xsl:if test="exists(skos:inScheme)">
+			<dl class="definedBy">
+				<dt>
+					<xsl:value-of
+						select="f:getDescriptionLabel('inscheme')" />
+				</dt>
+				<xsl:for-each select="skos:inScheme">
+					<dd>
+						<xsl:choose>
+							<xsl:when test="normalize-space(@*:resource) = ''">
+								<xsl:value-of select="$ontology-url" />
+							</xsl:when>
+							<xsl:otherwise>
+								<a href="{@*:resource}">
+									<xsl:value-of select="@*:resource" />
+								</a>
+							</xsl:otherwise>
+						</xsl:choose>
+					</dd>
+				</xsl:for-each>
+			</dl>
+		</xsl:if>
+	</xsl:template>
+
+		<xsl:template name="get.original.source">
 		<xsl:if test="exists(rdfs:isDefinedBy)">
 			<dl class="definedBy">
 				<dt>
@@ -1232,6 +1293,16 @@
 				</xsl:call-template>
 				<xsl:call-template name="get.entity.punning" />
 				<!--  <xsl:call-template name="get.entity.isCloneOf" />-->
+			</dl>
+		</xsl:if>
+	</xsl:template>
+
+	<xsl:template name="get.concept.description">
+		<xsl:if
+			test="exists(skos:broader|skos:narrower)">
+			<dl class="description">
+				<xsl:call-template name="get.concept.broader" />
+				<xsl:call-template name="get.concept.narrower" />
 			</dl>
 		</xsl:if>
 	</xsl:template>
@@ -1505,6 +1576,27 @@
 		</xsl:if>
 	</xsl:template>
 
+	<xsl:template name="get.concept.broader">
+		<xsl:if test="exists(skos:broader)">
+			<dt>
+				<xsl:value-of
+					select="f:getDescriptionLabel('hasbroader')" />
+			</dt>
+			<xsl:apply-templates select="skos:broader" />
+		</xsl:if>
+	</xsl:template>
+
+
+	<xsl:template name="get.concept.narrower">
+		<xsl:if test="exists(skos:narrower)">
+			<dt>
+				<xsl:value-of
+					select="f:getDescriptionLabel('hasnarrower')" />
+			</dt>
+			<xsl:apply-templates select="skos:narrower" />
+		</xsl:if>
+	</xsl:template>
+
 	<xsl:template name="get.class.indomain">
 		<xsl:variable name="about" select="@*:about|@*:ID"
 			as="xs:string" />
@@ -1727,13 +1819,13 @@
 		<span class="markdown">
 			<xsl:value-of select="text()" />
 		</span>
-		<!-- <xsl:for-each select="text()"> <xsl:for-each select="tokenize(.,$n)"> 
-			<xsl:if test="normalize-space(.) != ''"> <p> <xsl:variable name="withLinks" 
-			select="replace(.,'\[\[([^\[\]]+)\]\[([^\[\]]+)\]\]','@@@$1@@$2@@@')" /> 
-			<xsl:for-each select="tokenize($withLinks,'@@@')"> <xsl:choose> <xsl:when 
-			test="matches(.,'@@')"> <xsl:variable name="tokens" select="tokenize(.,'@@')" 
-			/> <a href="{$tokens[1]}"><xsl:value-of select="$tokens[2]" /></a> </xsl:when> 
-			<xsl:otherwise> <xsl:value-of select="." /> </xsl:otherwise> </xsl:choose> 
+		<!-- <xsl:for-each select="text()"> <xsl:for-each select="tokenize(.,$n)">
+			<xsl:if test="normalize-space(.) != ''"> <p> <xsl:variable name="withLinks"
+			select="replace(.,'\[\[([^\[\]]+)\]\[([^\[\]]+)\]\]','@@@$1@@$2@@@')" />
+			<xsl:for-each select="tokenize($withLinks,'@@@')"> <xsl:choose> <xsl:when
+			test="matches(.,'@@')"> <xsl:variable name="tokens" select="tokenize(.,'@@')"
+			/> <a href="{$tokens[1]}"><xsl:value-of select="$tokens[2]" /></a> </xsl:when>
+			<xsl:otherwise> <xsl:value-of select="." /> </xsl:otherwise> </xsl:choose>
 			</xsl:for-each> </p> </xsl:if> </xsl:for-each> </xsl:for-each> -->
 	</xsl:template>
 
@@ -1919,6 +2011,29 @@
 		</xsl:if>
 	</xsl:template>
 
+	<xsl:template name="get.topconcepts">
+		<xsl:if test="exists(skos:hasTopConcept)">
+			<dl>
+				<dt>
+					<xsl:value-of
+						select="f:getDescriptionLabel('topconcepts')" />
+					:
+					<ul>
+						<xsl:apply-templates
+							select="//skos:hasTopConcept/skos:Concept[exists(element()) and exists(@*:about|@*:ID)]"
+							mode="toc">
+							<xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
+								order="ascending" data-type="text" />
+							<xsl:with-param name="type" tunnel="yes"
+								as="xs:string" select="'concept'" />
+						</xsl:apply-templates>
+					</ul>
+				</dt>
+			</dl>
+		</xsl:if>
+	</xsl:template>
+
+
 	<xsl:template name="get.scenarios">
 		<xsl:if test="exists(cpannotationschema:scenarios)">
 			<dl>
@@ -2030,6 +2145,14 @@
 						<a href="#classes">
 							<xsl:value-of
 								select="f:getDescriptionLabel('classes')" />
+						</a>
+					</li>
+				</xsl:if>
+				<xsl:if test="exists(/rdf:RDF//skos:Concept/element())">
+					<li>
+						<a href="#concepts">
+							<xsl:value-of
+								select="f:getDescriptionLabel('concepts')" />
 						</a>
 					</li>
 				</xsl:if>
@@ -2171,10 +2294,42 @@
 		</xsl:if>
 	</xsl:template>
 
+	<xsl:template name="get.concepts">
+		<xsl:if test="exists(//skos:Concept/element())">
+			<div id="concepts">
+				<h2>
+					<xsl:value-of
+						select="f:getDescriptionLabel('concepts')" />
+				</h2>
+				<xsl:call-template name="get.concepts.toc" />
+				<xsl:apply-templates
+					select="//skos:Concept[exists(element()) and exists(@*:about|@*:ID)]">
+					<xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
+						order="ascending" data-type="text" />
+					<xsl:with-param name="type" tunnel="yes"
+						as="xs:string" select="'concept'" />
+				</xsl:apply-templates>
+			</div>
+		</xsl:if>
+	</xsl:template>
+
 	<xsl:template name="get.classes.toc">
 		<ul class="hlist">
 			<xsl:apply-templates
 				select="/rdf:RDF/owl:Class[exists(element()) and exists(@*:about|@*:ID)]"
+				mode="toc">
+				<xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
+					order="ascending" data-type="text" />
+				<xsl:with-param name="type" tunnel="yes"
+					as="xs:string" select="'class'" />
+			</xsl:apply-templates>
+		</ul>
+	</xsl:template>
+
+	<xsl:template name="get.concepts.toc">
+		<ul class="hlist">
+			<xsl:apply-templates
+				select="//skos:Concept[exists(element()) and exists(@*:about|@*:ID)]"
 				mode="toc">
 				<xsl:sort select="lower-case(f:getLabel(@*:about|@*:ID))"
 					order="ascending" data-type="text" />
@@ -2314,12 +2469,17 @@
 		<xsl:param name="type" as="xs:string" select="''"
 			tunnel="yes" />
 		<xsl:variable name="el"
-			select="$root/rdf:RDF/element()[@*:about = $iri or @*:ID = $iri]"
+			select="$root/rdf:RDF//element()[@*:about = $iri or @*:ID = $iri]"
 			as="element()*" />
+
 		<xsl:choose>
 			<xsl:when
 				test="($type = '' or $type = 'class') and ($el[self::owl:Class] or $iri = 'http://www.w3.org/2002/07/owl#Thing')">
 				<sup title="{f:getDescriptionLabel('class')}" class="type-c">c</sup>
+			</xsl:when>
+			<xsl:when
+				test="($type = '' or $type = 'concept') and ($el[self::skos:Concept])">
+				<sup title="{f:getDescriptionLabel('concept')}" class="type-c">concept</sup>
 			</xsl:when>
 			<xsl:when
 				test="($type = '' or $type = 'property') and $el[self::owl:ObjectProperty]">
@@ -2389,7 +2549,7 @@
 		</xsl:if>
 	</xsl:template>
 
-	<!-- input: un elemento tipicamente contenente solo testo output: un booleano 
+	<!-- input: un elemento tipicamente contenente solo testo output: un booleano
 		che risponde se quell'elemento è quello giusto per la lingua considerata -->
 	<xsl:function name="f:isInLanguage" as="xs:boolean">
 		<xsl:param name="el" as="element()" />
@@ -2399,11 +2559,11 @@
 			select="$el/@xml:lang = $def-lang" as="xs:boolean" />
 
 		<xsl:choose>
-			<!-- Ritorno false se: - c'è qualche elemento prima di me del linguaggio 
-				giusto OR - io non sono del linguaggio giusto AND - c'è qualche elemento 
-				dopo di me del linguaggio giusto OR - c'è qualche elemento prima di me che 
-				è del linguaggio di default OR - io non sono del linguaggio di default AND 
-				- c'è qualche elemento dopo di me del linguaggio di default OR - c'è qualche 
+			<!-- Ritorno false se: - c'è qualche elemento prima di me del linguaggio
+				giusto OR - io non sono del linguaggio giusto AND - c'è qualche elemento
+				dopo di me del linguaggio giusto OR - c'è qualche elemento prima di me che
+				è del linguaggio di default OR - io non sono del linguaggio di default AND
+				- c'è qualche elemento dopo di me del linguaggio di default OR - c'è qualche
 				elemento prima di me -->
 			<xsl:when
 				test="
@@ -2450,6 +2610,8 @@
 		<xsl:value-of
 			select="exists($rdf/owl:Class[some $res in rdfs:subClassOf/@*:resource satisfies $res = $el/(@*:about|@*:ID)])" />
 	</xsl:function>
+
+
 
 	<xsl:function name="f:hasMembers" as="xs:boolean">
 		<xsl:param name="el" as="element()" />

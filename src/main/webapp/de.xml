@@ -86,4 +86,10 @@
     <reengineeredFrom>weiterentwicklet auf Basis von</reengineeredFrom>
     <relatedCPs>ähnliche Inhaltsmuster</relatedCPs>
     <scenarios>Szenarien</scenarios>
+    <concepts>Begriff</concepts>
+    <concepttoc>Concept ToC</concepttoc>
+    <inscheme>in schema</inscheme>
+    <hasbroader>hat Oberbegriff</hasbroader>
+    <hasnarrower>hat Unterbegriff</hasnarrower>
+    <topconcepts>hat Begriff oberster Ebene</topconcepts>
 </labels>

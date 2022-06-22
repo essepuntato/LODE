@@ -78,7 +78,14 @@
 	<annotationpropertytoc>propriétés d'annotations</annotationpropertytoc>
 	<namedindividualtoc>les individus nommés</namedindividualtoc>
 	<hascharacteristics>a pour caractéristiques</hascharacteristics>
-	<!-- Translation of the following labels from English to French is courtesy 
+	<concepts>Concepts</concepts>
+	<concepttoc>Concept ToC</concepttoc>
+	<inscheme>Schéma de concepts</inscheme>
+	<hasbroader>concept générique</hasbroader>
+	<hasnarrower>concept spécifique</hasnarrower>
+	<topconcepts>concept de niveau 1</topconcepts>
+
+	<!-- Translation of the following labels from English to French is courtesy
 		of Eleonora <eleonora.marzi@unibo.it> -->
 	<coversRequirements>Réponds Besoins</coversRequirements>
 	<extractedFrom>Tiré de</extractedFrom>

@@ -28,7 +28,13 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,12 +43,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.mindswap.pellet.PelletOptions;
+import org.owasp.encoder.Encode;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -86,7 +97,8 @@ import org.xml.sax.SAXException;
 import com.clarkparsia.pellet.owlapiv3.PelletReasoner;
 import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
 
-import org.owasp.encoder.Encode;
+import it.essepuntato.lode.extensions.AnnotationPropertyExtractor;
+import net.sf.saxon.Configuration;
 
 /**
  * Servlet implementation class LodeServlet
@@ -129,11 +141,11 @@ public class LodeServlet extends HttpServlet {
 				HttpURLConnection.setFollowRedirects(true);
 
 				String content = "";
-
-				boolean useOWLAPI = new Boolean(request.getParameter("owlapi"));
-				boolean considerImportedOntologies = new Boolean(request.getParameter("imported"));
-				boolean considerImportedClosure = new Boolean(request.getParameter("closure"));
-				boolean useReasoner = new Boolean(request.getParameter("reasoner"));
+				
+				boolean useOWLAPI = Boolean.valueOf(request.getParameter("owlapi"));
+				boolean considerImportedOntologies = Boolean.valueOf(request.getParameter("imported"));
+				boolean considerImportedClosure = Boolean.valueOf(request.getParameter("closure"));
+				boolean useReasoner = Boolean.valueOf(request.getParameter("reasoner"));
 
 				if (considerImportedOntologies || considerImportedClosure || useReasoner) {
 					useOWLAPI = true;
@@ -451,7 +463,12 @@ public class LodeServlet extends HttpServlet {
 	}
 
 	private String applyXSLTTransformation(String source, String ontologyUrl, String lang) throws TransformerException {
-		TransformerFactory tfactory = new net.sf.saxon.TransformerFactoryImpl();
+
+		Configuration c = Configuration.newConfiguration();
+		
+		c.registerExtensionFunction(AnnotationPropertyExtractor.getInstance(ontologyUrl));
+
+		TransformerFactory tfactory = new net.sf.saxon.TransformerFactoryImpl(c);
 
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 

@@ -86,4 +86,10 @@
     <reengineeredFrom>Reengineered From</reengineeredFrom>
     <relatedCPs>Related Content Patterns</relatedCPs>
     <scenarios>Scenarios</scenarios>
+    <concepts>Concepts</concepts>
+    <concepttoc>Concept ToC</concepttoc>
+    <inscheme>in scheme</inscheme>
+    <hasbroader>has broader</hasbroader>
+    <hasnarrower>has narrower</hasnarrower>
+    <topconcepts>Top Concepts</topconcepts>
 </labels>

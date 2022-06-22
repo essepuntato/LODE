@@ -10,8 +10,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<apachecommons.version>2.1.1</apachecommons.version>
 		<apachecommonsbeanutils.version>1.9.3</apachecommonsbeanutils.version>
-		<log4j.version>1.7.7</log4j.version>
-		<sl4j.version>1.7.7</sl4j.version>
+		<log4j.version>1.7.36</log4j.version>
 		<owaspencoder.version>1.2.3</owaspencoder.version>
 	</properties>
 
@@ -80,8 +79,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-jdk14</artifactId>
-			<version>${sl4j.version}</version>
+			<artifactId>slf4j-api</artifactId>
+			<version>${log4j.version}</version>
 		</dependency>
 
 		<!-- OWASP Java Encoder -->

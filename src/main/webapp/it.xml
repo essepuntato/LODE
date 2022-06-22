@@ -86,4 +86,10 @@
     <reengineeredFrom>(Re)Ingegnerizzato da</reengineeredFrom>
     <relatedCPs>Content Pattern Associati</relatedCPs>
     <scenarios>Scenari</scenarios>
+    <concepts>Concetti</concepts>
+    <concepttoc>indice dei Concetti</concepttoc>
+    <inscheme>in schema</inscheme>
+    <hasbroader>ha concetto più generico</hasbroader>
+    <hasnarrower>ha concetto più specifico</hasnarrower>
+    <topconcepts>Concetti di primo livello</topconcepts>
 </labels>
