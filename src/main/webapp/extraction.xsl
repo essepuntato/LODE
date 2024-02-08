@@ -1509,7 +1509,13 @@
 		<xsl:variable name="about" select="@*:about|@*:ID"
 			as="xs:string" />
 		<xsl:variable name="properties" as="attribute()*"
-			select="/rdf:RDF/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in rdfs:domain/@*:resource satisfies $res = $about]/(@*:about|@*:ID)" />
+        select="
+        /rdf:RDF/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)
+        [some $res in (rdfs:domain/@*:resource | rdfs:domain/owl:Class/owl:unionOf/rdf:Description/@*:about)
+            satisfies $res = $about
+        ]
+        /(@*:about|@*:ID)
+        " />
 		<xsl:if test="exists($properties)">
 			<dt>
 				<xsl:value-of
@@ -1536,7 +1542,13 @@
 		<xsl:variable name="about" select="(@*:about|@*:ID)"
 			as="xs:string" />
 		<xsl:variable name="properties" as="attribute()*"
-			select="/rdf:RDF/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in rdfs:range/@*:resource satisfies $res = $about]/(@*:about|@*:ID)" />
+        select="
+        /rdf:RDF/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)
+        [some $res in (rdfs:range/@*:resource | rdfs:range/owl:Class/owl:unionOf/rdf:Description/@*:about)
+            satisfies $res = $about
+        ]
+        /(@*:about|@*:ID)
+        " />
 		<xsl:if test="exists($properties)">
 			<dt>
 				<xsl:value-of
@@ -2460,13 +2472,27 @@
 	<xsl:function name="f:isInRange" as="xs:boolean">
 		<xsl:param name="el" as="element()" />
 		<xsl:value-of
-			select="exists($rdf/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in rdfs:range/@*:resource satisfies $res = $el/(@*:about|@*:ID)])" />
+            select="
+            exists($rdf/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)
+                [some $res in (rdfs:range/@*:resource | rdfs:range/owl:Class/owl:unionOf/rdf:Description/@*:about)
+                    satisfies $res = $el/(@*:about|@*:ID)
+                ]
+            )
+            "
+        />
 	</xsl:function>
 
 	<xsl:function name="f:isInDomain" as="xs:boolean">
 		<xsl:param name="el" as="element()" />
 		<xsl:value-of
-			select="exists($rdf/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)[some $res in rdfs:domain/@*:resource satisfies $res = $el/(@*:about|@*:ID)])" />
+            select="
+            exists($rdf/(owl:ObjectProperty|owl:DatatypeProperty|owl:AnnotationProperty)
+                [some $res in (rdfs:domain/@*:resource | rdfs:domain/owl:Class/owl:unionOf/rdf:Description/@*:about)
+                    satisfies $res = $el/(@*:about|@*:ID)
+                ]
+            )
+            "
+        />
 	</xsl:function>
 
 	<xsl:function name="f:hasSubproperties" as="xs:boolean">
