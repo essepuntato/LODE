@@ -1,3 +1,5 @@
+**Important announcement (4 August 2026):** A new version of LODE is now available at https://github.com/opencitations/lode. LODE is currently maintained by [OpenCitations](https://opencitations.net), an Open Scholarly Infrastructure dedicated to the publication of open bibliographic and citation data. While using it to create the documentation of all the ontologies it uses and maintains, in particular the [Semantic Publishing and Reference (SPAR) Ontologies](https://www.sparontologies.net), OpenCitations has also made LODE accessible via the Web through its infrastructure at https://lode.opencitations.net. The old version of LODE, available in this GitHub repository, is no longer maintained and will be left for legacy purposes.
+
 # Live OWL Documentation Environment (LODE)
 This repository is a Tomcat server application that can be used to create HTML documentation for [Web Ontology Language](https://www.w3.org/OWL/) (OWL) ontologies.
 
