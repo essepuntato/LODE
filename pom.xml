@@ -9,7 +9,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<apachecommons.version>2.1.1</apachecommons.version>
-		<apachecommonsbeanutils.version>1.9.3</apachecommonsbeanutils.version>
+		<apachecommonsbeanutils.version>1.9.4</apachecommonsbeanutils.version>
 		<log4j.version>1.7.7</log4j.version>
 		<sl4j.version>1.7.7</sl4j.version>
 		<owaspencoder.version>1.2.3</owaspencoder.version>
