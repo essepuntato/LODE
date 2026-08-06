@@ -146,18 +146,15 @@
 		<script src="{$css-location}marked.min.js"><!-- Comment for compatibility -->
 		</script>
 		<script>
-			$(document).ready(
-			function () {
-			jQuery(".markdown").each(function(el){
-			jQuery(this).after(marked(jQuery(this).text())).remove()});
-			var list =
-			$('a[name="
-			<xsl:value-of select="$ontology-url" />
-			"]');
-			if (list.size() != 0) {
-			var element = list.first();
-			$.scrollTo(element);
-			}
+			$(document).ready(function () {
+				jQuery(".markdown").each(function(el){
+					jQuery(this).after(marked(jQuery(this).text())).remove()
+				});
+				var list = $('a[name="<xsl:value-of select="$ontology-url" />"]');
+				if (list.size() != 0) {
+					var element = list.first();
+					$.scrollTo(element);
+				}
 			});
 		</script>
 	</xsl:template>
