@@ -5,6 +5,7 @@
 	<groupId>it.essepuntato</groupId>
 	<artifactId>LODE</artifactId>
 	<version>1.3-SNAPSHOT</version>
+        <packaging>war</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -119,6 +120,7 @@
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
+                                <version>11.0.7</version>
 				<configuration>
 					<jettyXml>src/main/resources/jetty/jetty.xml</jettyXml>
 					<stopPort>9966</stopPort>
